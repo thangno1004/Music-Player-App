@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "933723472451",
+    "firebase_url": "https://music-player-app-82bb3-default-rtdb.firebaseio.com",
+    "project_id": "music-player-app-82bb3",
+    "storage_bucket": "music-player-app-82bb3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933723472451:android:a8c55c1186f2d3e499caf6",
+        "android_client_info": {
+          "package_name": "com.pro.music"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGndvhQw4YVt4joQOk0UdSgx-AIOpjt9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
