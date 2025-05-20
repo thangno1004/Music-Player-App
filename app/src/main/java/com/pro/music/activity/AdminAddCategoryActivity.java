@@ -11,6 +11,7 @@ import com.pro.music.constant.GlobalFunction;
 import com.pro.music.databinding.ActivityAdminAddCategoryBinding;
 import com.pro.music.model.Category;
 import com.pro.music.utils.StringUtil;
+import com.pro.music.validator.addOrEditCategoryValidator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,15 +66,29 @@ public class AdminAddCategoryActivity extends BaseActivity {
         String strName = binding.edtName.getText().toString().trim();
         String strImage = binding.edtImage.getText().toString().trim();
 
-        if (StringUtil.isEmpty(strName)) {
-            Toast.makeText(this, getString(R.string.msg_name_require), Toast.LENGTH_SHORT).show();
-            return;
+//        if (StringUtil.isEmpty(strName)) {
+//            Toast.makeText(this, getString(R.string.msg_name_require), Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        if (StringUtil.isEmpty(strImage)) {
+//            Toast.makeText(this, getString(R.string.msg_image_require), Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+        addOrEditCategoryValidator.CategoryInputError inputError =
+                addOrEditCategoryValidator.validate(strName, strImage);
+
+        switch (inputError) {
+            case NAME_REQUIRED:
+                Toast.makeText(this, getString(R.string.msg_name_require), Toast.LENGTH_SHORT).show();
+                return;
+            case IMAGE_REQUIRED:
+                Toast.makeText(this, getString(R.string.msg_image_require), Toast.LENGTH_SHORT).show();
+                return;
+            case OK:
+                break;
         }
 
-        if (StringUtil.isEmpty(strImage)) {
-            Toast.makeText(this, getString(R.string.msg_image_require), Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         // Update category
         if (isUpdate) {
