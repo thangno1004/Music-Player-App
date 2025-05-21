@@ -1,0 +1,187 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > FeedbackFragment</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.fragment</a>
+</div>
+
+<h1>Coverage Summary for Class: FeedbackFragment (com.pro.music.fragment)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FeedbackFragment</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.fragment;
+&nbsp;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.annotation.Nullable;
+&nbsp;import androidx.fragment.app.Fragment;
+&nbsp;
+&nbsp;import com.pro.music.MyApplication;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.activity.MainActivity;
+&nbsp;import com.pro.music.constant.GlobalFunction;
+&nbsp;import com.pro.music.databinding.FragmentFeedbackBinding;
+&nbsp;import com.pro.music.model.Feedback;
+&nbsp;import com.pro.music.prefs.DataStoreManager;
+&nbsp;import com.pro.music.utils.StringUtil;
+&nbsp;
+<b class="nc">&nbsp;public class FeedbackFragment extends Fragment {</b>
+&nbsp;
+&nbsp;    private FragmentFeedbackBinding mFragmentFeedbackBinding;
+&nbsp;
+&nbsp;    @Nullable
+&nbsp;    @Override
+&nbsp;    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+&nbsp;                             @Nullable Bundle savedInstanceState) {
+<b class="nc">&nbsp;        mFragmentFeedbackBinding = FragmentFeedbackBinding.inflate(inflater, container, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        mFragmentFeedbackBinding.edtEmail.setText(DataStoreManager.getUser().getEmail());</b>
+<b class="nc">&nbsp;        mFragmentFeedbackBinding.tvSendFeedback.setOnClickListener(v -&gt; onClickSendFeedback());</b>
+&nbsp;
+<b class="nc">&nbsp;        return mFragmentFeedbackBinding.getRoot();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void onClickSendFeedback() {
+<b class="nc">&nbsp;        if (getActivity() == null) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        MainActivity activity = (MainActivity) getActivity();</b>
+&nbsp;
+<b class="nc">&nbsp;        String strName = mFragmentFeedbackBinding.edtName.getText().toString();</b>
+<b class="nc">&nbsp;        String strPhone = mFragmentFeedbackBinding.edtPhone.getText().toString();</b>
+<b class="nc">&nbsp;        String strEmail = mFragmentFeedbackBinding.edtEmail.getText().toString();</b>
+<b class="nc">&nbsp;        String strComment = mFragmentFeedbackBinding.edtComment.getText().toString();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (StringUtil.isEmpty(strName)) {</b>
+<b class="nc">&nbsp;            GlobalFunction.showToastMessage(activity, getString(R.string.name_require));</b>
+<b class="nc">&nbsp;        } else if (StringUtil.isEmpty(strComment)) {</b>
+<b class="nc">&nbsp;            GlobalFunction.showToastMessage(activity, getString(R.string.comment_require));</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            activity.showProgressDialog(true);</b>
+<b class="nc">&nbsp;            Feedback feedback = new Feedback(strName, strPhone, strEmail, strComment);</b>
+<b class="nc">&nbsp;            MyApplication.get(getActivity()).getFeedbackDatabaseReference()</b>
+<b class="nc">&nbsp;                    .child(String.valueOf(System.currentTimeMillis()))</b>
+<b class="nc">&nbsp;                    .setValue(feedback, (databaseError, databaseReference) -&gt; {</b>
+<b class="nc">&nbsp;                        activity.showProgressDialog(false);</b>
+<b class="nc">&nbsp;                        sendFeedbackSuccess();</b>
+&nbsp;                    });
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void sendFeedbackSuccess() {
+<b class="nc">&nbsp;        GlobalFunction.hideSoftKeyboard(getActivity());</b>
+<b class="nc">&nbsp;        GlobalFunction.showToastMessage(getActivity(), getString(R.string.msg_send_feedback_success));</b>
+<b class="nc">&nbsp;        mFragmentFeedbackBinding.edtName.setText(&quot;&quot;);</b>
+<b class="nc">&nbsp;        mFragmentFeedbackBinding.edtPhone.setText(&quot;&quot;);</b>
+<b class="nc">&nbsp;        mFragmentFeedbackBinding.edtComment.setText(&quot;&quot;);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

@@ -7,6 +7,7 @@ import org.junit.Test;
 public class SignInValidatorTest {
 
     /**
+     * TC 2.1
      * Trường hợp: Email rỗng.
      * Vai trò: user (isAdmin = false).
      * Kỳ vọng: Trả về lỗi EMAIL_REQUIRED.
@@ -18,6 +19,7 @@ public class SignInValidatorTest {
     }
 
     /**
+     * TC 2.2
      * Trường hợp: Password rỗng.
      * Vai trò: user.
      * Kỳ vọng: Trả về lỗi PASSWORD_REQUIRED.
@@ -29,6 +31,7 @@ public class SignInValidatorTest {
     }
 
     /**
+     * TC 2.3
      * Trường hợp: Email không đúng định dạng chuẩn (không chứa @).
      * Vai trò: user.
      * Kỳ vọng: Trả về lỗi EMAIL_INVALID.
@@ -40,6 +43,7 @@ public class SignInValidatorTest {
     }
 
     /**
+     * TC 2.4
      * Trường hợp: Người dùng chọn vai trò admin,
      * nhưng email lại không chứa định dạng dành cho admin.
      * Kỳ vọng: Trả về lỗi EMAIL_INVALID_FOR_ADMIN.
@@ -51,6 +55,7 @@ public class SignInValidatorTest {
     }
 
     /**
+     * TC 2.5
      * Trường hợp: Người dùng chọn vai trò user,
      * nhưng email lại chứa định dạng dành cho admin.
      * Kỳ vọng: Trả về lỗi EMAIL_INVALID_FOR_USER.
@@ -62,6 +67,7 @@ public class SignInValidatorTest {
     }
 
     /**
+     * TC 2.6
      * Trường hợp: Người dùng chọn vai trò admin,
      * và nhập email hợp lệ dành cho admin.
      * Kỳ vọng: Trả về OK.
@@ -73,6 +79,7 @@ public class SignInValidatorTest {
     }
 
     /**
+     * TC 2.7
      * Trường hợp: Người dùng chọn vai trò user,
      * và nhập email hợp lệ dành cho user.
      * Kỳ vọng: Trả về OK.

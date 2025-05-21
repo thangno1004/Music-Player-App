@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ContactFragment</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.fragment</a>
+</div>
+
+<h1>Coverage Summary for Class: ContactFragment (com.pro.music.fragment)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ContactFragment</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/23)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.fragment;
+&nbsp;
+&nbsp;import android.content.Intent;
+&nbsp;import android.net.Uri;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.annotation.Nullable;
+&nbsp;import androidx.fragment.app.Fragment;
+&nbsp;import androidx.recyclerview.widget.GridLayoutManager;
+&nbsp;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.adapter.ContactAdapter;
+&nbsp;import com.pro.music.constant.AboutUsConfig;
+&nbsp;import com.pro.music.constant.GlobalFunction;
+&nbsp;import com.pro.music.databinding.FragmentContactBinding;
+&nbsp;import com.pro.music.model.Contact;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class ContactFragment extends Fragment {</b>
+&nbsp;
+&nbsp;    private FragmentContactBinding mFragmentContactBinding;
+&nbsp;    private ContactAdapter mContactAdapter;
+&nbsp;
+&nbsp;    @Nullable
+&nbsp;    @Override
+&nbsp;    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+<b class="nc">&nbsp;        mFragmentContactBinding = FragmentContactBinding.inflate(inflater, container, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        initUi();</b>
+<b class="nc">&nbsp;        return mFragmentContactBinding.getRoot();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initUi() {
+<b class="nc">&nbsp;        mFragmentContactBinding.tvAboutUsTitle.setText(AboutUsConfig.ABOUT_US_TITLE);</b>
+<b class="nc">&nbsp;        mFragmentContactBinding.tvAboutUsContent.setText(AboutUsConfig.ABOUT_US_CONTENT);</b>
+&nbsp;
+<b class="nc">&nbsp;        mContactAdapter = new ContactAdapter(getActivity(), getListContact(),</b>
+<b class="nc">&nbsp;                () -&gt; GlobalFunction.callPhoneNumber(getActivity()));</b>
+<b class="nc">&nbsp;        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);</b>
+<b class="nc">&nbsp;        mFragmentContactBinding.rcvData.setNestedScrollingEnabled(false);</b>
+<b class="nc">&nbsp;        mFragmentContactBinding.rcvData.setFocusable(false);</b>
+<b class="nc">&nbsp;        mFragmentContactBinding.rcvData.setLayoutManager(layoutManager);</b>
+<b class="nc">&nbsp;        mFragmentContactBinding.rcvData.setAdapter(mContactAdapter);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public List&lt;Contact&gt; getListContact() {
+<b class="nc">&nbsp;        List&lt;Contact&gt; contactArrayList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        contactArrayList.add(new Contact(Contact.FACEBOOK, R.drawable.ic_facebook));</b>
+<b class="nc">&nbsp;        contactArrayList.add(new Contact(Contact.HOTLINE, R.drawable.ic_hotline));</b>
+<b class="nc">&nbsp;        contactArrayList.add(new Contact(Contact.GMAIL, R.drawable.ic_gmail));</b>
+<b class="nc">&nbsp;        contactArrayList.add(new Contact(Contact.SKYPE, R.drawable.ic_skype));</b>
+<b class="nc">&nbsp;        contactArrayList.add(new Contact(Contact.YOUTUBE, R.drawable.ic_youtube));</b>
+<b class="nc">&nbsp;        contactArrayList.add(new Contact(Contact.ZALO, R.drawable.ic_zalo));</b>
+&nbsp;
+<b class="nc">&nbsp;        return contactArrayList;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onDestroy() {
+<b class="nc">&nbsp;        super.onDestroy();</b>
+<b class="nc">&nbsp;        mContactAdapter.release();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 public class AdminChangePasswordValidatorTest {
 
     /**
+     * TC 1.1
      * Trường hợp: Mật khẩu cũ rỗng.
      * Kỳ vọng: Trả về OLD_PASSWORD_EMPTY vì người dùng chưa nhập mật khẩu cũ.
      */
@@ -18,6 +19,7 @@ public class AdminChangePasswordValidatorTest {
     }
 
     /**
+     * TC 1.2
      * Trường hợp: Mật khẩu mới rỗng.
      * Kỳ vọng: Trả về NEW_PASSWORD_EMPTY vì mật khẩu mới là bắt buộc.
      */
@@ -28,6 +30,7 @@ public class AdminChangePasswordValidatorTest {
     }
 
     /**
+     * TC 1.3
      * Trường hợp: Mật khẩu xác nhận rỗng.
      * Kỳ vọng: Trả về CONFIRM_PASSWORD_EMPTY vì người dùng chưa xác nhận mật khẩu mới.
      */
@@ -38,6 +41,7 @@ public class AdminChangePasswordValidatorTest {
     }
 
     /**
+     * TC 1.4
      * Trường hợp: Mật khẩu cũ nhập sai so với hệ thống.
      * Kỳ vọng: Trả về OLD_PASSWORD_INCORRECT.
      */
@@ -48,6 +52,7 @@ public class AdminChangePasswordValidatorTest {
     }
 
     /**
+     * TC 1.5
      * Trường hợp: Mật khẩu mới và mật khẩu xác nhận không trùng khớp.
      * Kỳ vọng: Trả về PASSWORD_MISMATCH.
      */
@@ -58,6 +63,7 @@ public class AdminChangePasswordValidatorTest {
     }
 
     /**
+     * TC 1.6
      * Trường hợp: Mật khẩu mới trùng với mật khẩu cũ.
      * Kỳ vọng: Trả về PASSWORD_SAME_AS_OLD.
      */
@@ -68,6 +74,7 @@ public class AdminChangePasswordValidatorTest {
     }
 
     /**
+     * TC 1.7
      * Trường hợp: Tất cả đầu vào hợp lệ.
      * Kỳ vọng: Trả về OK.
      */

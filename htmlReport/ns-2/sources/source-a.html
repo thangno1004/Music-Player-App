@@ -1,0 +1,676 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MainActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.activity</a>
+</div>
+
+<h1>Coverage Summary for Class: MainActivity (com.pro.music.activity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/48)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/81)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/251)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MainActivity$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/50)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/81)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/254)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.activity;
+&nbsp;
+&nbsp;import android.Manifest;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.content.BroadcastReceiver;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.content.IntentFilter;
+&nbsp;import android.content.pm.PackageManager;
+&nbsp;import android.os.Build;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.View;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.core.app.ActivityCompat;
+&nbsp;import androidx.core.view.GravityCompat;
+&nbsp;import androidx.fragment.app.Fragment;
+&nbsp;import androidx.fragment.app.FragmentTransaction;
+&nbsp;import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+&nbsp;
+&nbsp;import com.afollestad.materialdialogs.MaterialDialog;
+&nbsp;import com.google.firebase.auth.FirebaseAuth;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.constant.Constant;
+&nbsp;import com.pro.music.constant.GlobalFunction;
+&nbsp;import com.pro.music.databinding.ActivityMainBinding;
+&nbsp;import com.pro.music.fragment.AllSongsFragment;
+&nbsp;import com.pro.music.fragment.ArtistFragment;
+&nbsp;import com.pro.music.fragment.CategoryFragment;
+&nbsp;import com.pro.music.fragment.ChangePasswordFragment;
+&nbsp;import com.pro.music.fragment.ContactFragment;
+&nbsp;import com.pro.music.fragment.FavoriteFragment;
+&nbsp;import com.pro.music.fragment.FeedbackFragment;
+&nbsp;import com.pro.music.fragment.HomeFragment;
+&nbsp;import com.pro.music.fragment.PopularSongsFragment;
+&nbsp;import com.pro.music.fragment.SearchFragment;
+&nbsp;import com.pro.music.fragment.SongsByArtistFragment;
+&nbsp;import com.pro.music.fragment.SongsByCategoryFragment;
+&nbsp;import com.pro.music.model.Artist;
+&nbsp;import com.pro.music.model.Category;
+&nbsp;import com.pro.music.model.Song;
+&nbsp;import com.pro.music.model.User;
+&nbsp;import com.pro.music.prefs.DataStoreManager;
+&nbsp;import com.pro.music.service.MusicService;
+&nbsp;import com.pro.music.utils.GlideUtils;
+&nbsp;
+&nbsp;@SuppressLint(&quot;NonConstantResourceId&quot;)
+<b class="nc">&nbsp;public class MainActivity extends BaseActivity implements View.OnClickListener {</b>
+&nbsp;
+&nbsp;    public static final int TYPE_HOME = 1;
+&nbsp;    public static final int TYPE_CATEGORY = 2;
+&nbsp;    public static final int TYPE_ARTIST = 3;
+&nbsp;    public static final int TYPE_ALL_SONGS = 4;
+&nbsp;    public static final int TYPE_POPULAR_SONGS = 5;
+&nbsp;    public static final int TYPE_FAVORITE_SONGS = 6;
+&nbsp;    public static final int TYPE_FEEDBACK = 7;
+&nbsp;    public static final int TYPE_CONTACT = 8;
+&nbsp;    public static final int TYPE_CHANGE_PASSWORD = 9;
+&nbsp;
+&nbsp;    private static final int REQUEST_PERMISSION_CODE = 10;
+&nbsp;    private Song mSong;
+&nbsp;
+<b class="nc">&nbsp;    private int mTypeScreen = TYPE_HOME;</b>
+&nbsp;    private ActivityMainBinding mActivityMainBinding;
+&nbsp;    private int mAction;
+<b class="nc">&nbsp;    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {</b>
+&nbsp;        @Override
+&nbsp;        public void onReceive(Context context, Intent intent) {
+<b class="nc">&nbsp;            mAction = intent.getIntExtra(Constant.MUSIC_ACTION, 0);</b>
+<b class="nc">&nbsp;            handleMusicAction();</b>
+&nbsp;        }
+&nbsp;    };
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        mActivityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());</b>
+<b class="nc">&nbsp;        setContentView(mActivityMainBinding.getRoot());</b>
+&nbsp;
+<b class="nc">&nbsp;        checkNotificationPermission();</b>
+<b class="nc">&nbsp;        LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver,</b>
+&nbsp;                new IntentFilter(Constant.CHANGE_LISTENER));
+<b class="nc">&nbsp;        openHomeScreen();</b>
+<b class="nc">&nbsp;        displayUserInformation();</b>
+<b class="nc">&nbsp;        initListener();</b>
+<b class="nc">&nbsp;        displayLayoutBottom();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void checkNotificationPermission() {
+<b class="nc">&nbsp;        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.TIRAMISU) {</b>
+<b class="nc">&nbsp;            if (ActivityCompat.checkSelfPermission(this,</b>
+&nbsp;                    Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+<b class="nc">&nbsp;                ActivityCompat.requestPermissions(this,</b>
+&nbsp;                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void displayUserInformation() {
+<b class="nc">&nbsp;        User user = DataStoreManager.getUser();</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.tvUserEmail.setText(user.getEmail());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initHeader() {
+<b class="nc">&nbsp;        switch (mTypeScreen) {</b>
+&nbsp;            case TYPE_HOME:
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.app_name));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(false);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case TYPE_CATEGORY:
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_category));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(false);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case TYPE_ARTIST:
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_artist));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(false);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case TYPE_ALL_SONGS:
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_all_songs));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(true);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case TYPE_POPULAR_SONGS:
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_popular_songs));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(true);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case TYPE_FAVORITE_SONGS:
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_favorite_songs));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(true);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case TYPE_FEEDBACK:
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_feedback));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(false);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case TYPE_CONTACT:
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_contact));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(false);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case TYPE_CHANGE_PASSWORD:
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_change_password));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(false);</b>
+&nbsp;                break;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void handleToolbarTitle(String title) {
+<b class="nc">&nbsp;        mActivityMainBinding.header.tvTitle.setText(title);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void handleDisplayIconHeader(boolean isShowMenuLeft) {
+<b class="nc">&nbsp;        if (isShowMenuLeft) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.header.imgLeft.setImageResource(R.drawable.ic_menu_left);</b>
+<b class="nc">&nbsp;            mActivityMainBinding.header.imgLeft.setOnClickListener(</b>
+<b class="nc">&nbsp;                    v -&gt; mActivityMainBinding.drawerLayout.openDrawer(GravityCompat.START)</b>
+&nbsp;            );
+&nbsp;        } else {
+<b class="nc">&nbsp;            mActivityMainBinding.header.imgLeft.setImageResource(R.drawable.ic_back_white);</b>
+<b class="nc">&nbsp;            mActivityMainBinding.header.imgLeft.setOnClickListener(</b>
+<b class="nc">&nbsp;                    v -&gt; onBackPressed()</b>
+&nbsp;            );
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void handleDisplayButtonPlayAll(boolean isShow) {
+<b class="nc">&nbsp;        if (isShow) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.header.layoutPlayAll.setVisibility(View.VISIBLE);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            mActivityMainBinding.header.layoutPlayAll.setVisibility(View.GONE);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initListener() {
+<b class="nc">&nbsp;        mActivityMainBinding.header.layoutPlayAll.setOnClickListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutClose.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuHome.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuCategory.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuArtist.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuAllSongs.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuPopularSongs.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuFavoriteSongs.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuFeedback.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuContact.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuChangePassword.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.menuLeft.layoutMenuSignOut.setOnClickListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.imgPrevious.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.imgPlay.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.imgNext.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.imgClose.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.layoutText.setOnClickListener(this);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.imgSong.setOnClickListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        getSupportFragmentManager().addOnBackStackChangedListener(() -&gt; {</b>
+<b class="nc">&nbsp;            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);</b>
+<b class="nc">&nbsp;            if (fragment instanceof HomeFragment) {</b>
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.app_name));</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(true);</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(false);</b>
+<b class="nc">&nbsp;            } else if (fragment instanceof CategoryFragment) {</b>
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_category));</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(false);</b>
+<b class="nc">&nbsp;                CategoryFragment categoryFragment = (CategoryFragment) fragment;</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(categoryFragment.mIsFromMenuLeft);</b>
+<b class="nc">&nbsp;            } else if (fragment instanceof ArtistFragment) {</b>
+<b class="nc">&nbsp;                handleToolbarTitle(getString(R.string.menu_artist));</b>
+<b class="nc">&nbsp;                handleDisplayButtonPlayAll(false);</b>
+<b class="nc">&nbsp;                ArtistFragment artistFragment = (ArtistFragment) fragment;</b>
+<b class="nc">&nbsp;                handleDisplayIconHeader(artistFragment.mIsFromMenuLeft);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    private void openHomeScreen() {
+<b class="nc">&nbsp;        replaceFragment(new HomeFragment());</b>
+<b class="nc">&nbsp;        mTypeScreen = TYPE_HOME;</b>
+<b class="nc">&nbsp;        initHeader();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void openCategoryScreen() {
+<b class="nc">&nbsp;        replaceFragment(CategoryFragment.newInstance(true));</b>
+<b class="nc">&nbsp;        mTypeScreen = TYPE_CATEGORY;</b>
+<b class="nc">&nbsp;        initHeader();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void openArtistScreen() {
+<b class="nc">&nbsp;        replaceFragment(ArtistFragment.newInstance(true));</b>
+<b class="nc">&nbsp;        mTypeScreen = TYPE_ARTIST;</b>
+<b class="nc">&nbsp;        initHeader();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void openAllSongsScreen() {
+<b class="nc">&nbsp;        replaceFragment(new AllSongsFragment());</b>
+<b class="nc">&nbsp;        mTypeScreen = TYPE_ALL_SONGS;</b>
+<b class="nc">&nbsp;        initHeader();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void openPopularSongsScreen() {
+<b class="nc">&nbsp;        replaceFragment(new PopularSongsFragment());</b>
+<b class="nc">&nbsp;        mTypeScreen = TYPE_POPULAR_SONGS;</b>
+<b class="nc">&nbsp;        initHeader();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void openFavoriteSongsScreen() {
+<b class="nc">&nbsp;        replaceFragment(new FavoriteFragment());</b>
+<b class="nc">&nbsp;        mTypeScreen = TYPE_FAVORITE_SONGS;</b>
+<b class="nc">&nbsp;        initHeader();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void openFeedbackScreen() {
+<b class="nc">&nbsp;        replaceFragment(new FeedbackFragment());</b>
+<b class="nc">&nbsp;        mTypeScreen = TYPE_FEEDBACK;</b>
+<b class="nc">&nbsp;        initHeader();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void openContactScreen() {
+<b class="nc">&nbsp;        replaceFragment(new ContactFragment());</b>
+<b class="nc">&nbsp;        mTypeScreen = TYPE_CONTACT;</b>
+<b class="nc">&nbsp;        initHeader();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void openChangePasswordScreen() {
+<b class="nc">&nbsp;        replaceFragment(new ChangePasswordFragment());</b>
+<b class="nc">&nbsp;        mTypeScreen = TYPE_CHANGE_PASSWORD;</b>
+<b class="nc">&nbsp;        initHeader();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void clickSeeAllCategory() {
+<b class="nc">&nbsp;        addFragment(CategoryFragment.newInstance(false));</b>
+<b class="nc">&nbsp;        handleToolbarTitle(getString(R.string.menu_category));</b>
+<b class="nc">&nbsp;        handleDisplayIconHeader(false);</b>
+<b class="nc">&nbsp;        handleDisplayButtonPlayAll(false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void clickSeeAllArtist() {
+<b class="nc">&nbsp;        addFragment(ArtistFragment.newInstance(false));</b>
+<b class="nc">&nbsp;        handleToolbarTitle(getString(R.string.menu_artist));</b>
+<b class="nc">&nbsp;        handleDisplayIconHeader(false);</b>
+<b class="nc">&nbsp;        handleDisplayButtonPlayAll(false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void clickSeeAllPopularSongs() {
+<b class="nc">&nbsp;        addFragment(new PopularSongsFragment());</b>
+<b class="nc">&nbsp;        handleToolbarTitle(getString(R.string.menu_popular_songs));</b>
+<b class="nc">&nbsp;        handleDisplayIconHeader(false);</b>
+<b class="nc">&nbsp;        handleDisplayButtonPlayAll(true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void clickSeeAllFavoriteSongs() {
+<b class="nc">&nbsp;        addFragment(new FavoriteFragment());</b>
+<b class="nc">&nbsp;        handleToolbarTitle(getString(R.string.menu_favorite_songs));</b>
+<b class="nc">&nbsp;        handleDisplayIconHeader(false);</b>
+<b class="nc">&nbsp;        handleDisplayButtonPlayAll(true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void clickOpenSongsByCategory(Category category) {
+<b class="nc">&nbsp;        addFragment(SongsByCategoryFragment.newInstance(category.getId()));</b>
+<b class="nc">&nbsp;        handleToolbarTitle(category.getName());</b>
+<b class="nc">&nbsp;        handleDisplayIconHeader(false);</b>
+<b class="nc">&nbsp;        handleDisplayButtonPlayAll(true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void clickOpenSongsByArtist(Artist artist) {
+<b class="nc">&nbsp;        addFragment(SongsByArtistFragment.newInstance(artist.getId()));</b>
+<b class="nc">&nbsp;        handleToolbarTitle(artist.getName());</b>
+<b class="nc">&nbsp;        handleDisplayIconHeader(false);</b>
+<b class="nc">&nbsp;        handleDisplayButtonPlayAll(true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void clickSearchSongScreen() {
+<b class="nc">&nbsp;        addFragment(new SearchFragment());</b>
+<b class="nc">&nbsp;        handleToolbarTitle(getString(R.string.label_search));</b>
+<b class="nc">&nbsp;        handleDisplayIconHeader(false);</b>
+<b class="nc">&nbsp;        handleDisplayButtonPlayAll(true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onClick(View v) {
+<b class="nc">&nbsp;        int id = v.getId();</b>
+<b class="nc">&nbsp;        if (id == R.id.layout_close) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_home) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;            openHomeScreen();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_category) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;            openCategoryScreen();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_artist) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;            openArtistScreen();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_all_songs) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;            openAllSongsScreen();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_popular_songs) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;            openPopularSongsScreen();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_favorite_songs) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;            openFavoriteSongsScreen();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_feedback) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;            openFeedbackScreen();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_contact) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;            openContactScreen();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_change_password) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);</b>
+<b class="nc">&nbsp;            openChangePasswordScreen();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_menu_sign_out) {</b>
+<b class="nc">&nbsp;            onClickSignOut();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.img_previous) {</b>
+<b class="nc">&nbsp;            clickOnPrevButton();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.img_play) {</b>
+<b class="nc">&nbsp;            clickOnPlayButton();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.img_next) {</b>
+<b class="nc">&nbsp;            clickOnNextButton();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.img_close) {</b>
+<b class="nc">&nbsp;            clickOnCloseButton();</b>
+<b class="nc">&nbsp;        } else if (id == R.id.layout_text || id == R.id.img_song) {</b>
+<b class="nc">&nbsp;            openPlayMusicActivity();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void replaceFragment(Fragment fragment) {
+<b class="nc">&nbsp;        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();</b>
+<b class="nc">&nbsp;        transaction.replace(R.id.content_frame, fragment).commitAllowingStateLoss();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addFragment(Fragment fragment) {
+<b class="nc">&nbsp;        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();</b>
+<b class="nc">&nbsp;        transaction.add(R.id.content_frame, fragment)</b>
+<b class="nc">&nbsp;                .addToBackStack(fragment.getClass().getName())</b>
+<b class="nc">&nbsp;                .commit();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showConfirmExitApp() {
+<b class="nc">&nbsp;        new MaterialDialog.Builder(this)</b>
+<b class="nc">&nbsp;                .title(getString(R.string.app_name))</b>
+<b class="nc">&nbsp;                .content(getString(R.string.msg_exit_app))</b>
+<b class="nc">&nbsp;                .positiveText(getString(R.string.action_ok))</b>
+<b class="nc">&nbsp;                .onPositive((dialog, which) -&gt; finish())</b>
+<b class="nc">&nbsp;                .negativeText(getString(R.string.action_cancel))</b>
+<b class="nc">&nbsp;                .cancelable(false)</b>
+<b class="nc">&nbsp;                .show();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void displayLayoutBottom() {
+<b class="nc">&nbsp;        if (MusicService.mPlayer == null) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.layoutBottom.layoutItem.setVisibility(View.GONE);</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.layoutItem.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;        showInforSong();</b>
+<b class="nc">&nbsp;        showStatusButtonPlay();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void handleMusicAction() {
+<b class="nc">&nbsp;        if (Constant.CANNEL_NOTIFICATION == mAction) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.layoutBottom.layoutItem.setVisibility(View.GONE);</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.layoutItem.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;        showInforSong();</b>
+<b class="nc">&nbsp;        showStatusButtonPlay();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showInforSong() {
+<b class="nc">&nbsp;        if (MusicService.mListSongPlaying == null || MusicService.mListSongPlaying.isEmpty()) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        Song currentSong = MusicService.mListSongPlaying.get(MusicService.mSongPosition);</b>
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.tvSongName.setText(currentSong.getTitle());</b>
+<b class="nc">&nbsp;        mActivityMainBinding.layoutBottom.tvArtist.setText(currentSong.getArtist());</b>
+<b class="nc">&nbsp;        GlideUtils.loadUrl(currentSong.getImage(), mActivityMainBinding.layoutBottom.imgSong);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showStatusButtonPlay() {
+<b class="nc">&nbsp;        if (MusicService.isPlaying) {</b>
+<b class="nc">&nbsp;            mActivityMainBinding.layoutBottom.imgPlay.setImageResource(R.drawable.ic_pause_black);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            mActivityMainBinding.layoutBottom.imgPlay.setImageResource(R.drawable.ic_play_black);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void clickOnPrevButton() {
+<b class="nc">&nbsp;        GlobalFunction.startMusicService(this, Constant.PREVIOUS, MusicService.mSongPosition);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void clickOnNextButton() {
+<b class="nc">&nbsp;        GlobalFunction.startMusicService(this, Constant.NEXT, MusicService.mSongPosition);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void clickOnPlayButton() {
+<b class="nc">&nbsp;        if (MusicService.isPlaying) {</b>
+<b class="nc">&nbsp;            GlobalFunction.startMusicService(this, Constant.PAUSE, MusicService.mSongPosition);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            GlobalFunction.startMusicService(this, Constant.RESUME, MusicService.mSongPosition);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void clickOnCloseButton() {
+<b class="nc">&nbsp;        GlobalFunction.startMusicService(this, Constant.CANNEL_NOTIFICATION, MusicService.mSongPosition);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void openPlayMusicActivity() {
+<b class="nc">&nbsp;        GlobalFunction.startActivity(this, PlayMusicActivity.class);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void onClickSignOut() {
+<b class="nc">&nbsp;        FirebaseAuth.getInstance().signOut();</b>
+<b class="nc">&nbsp;        DataStoreManager.setUser(null);</b>
+&nbsp;        // Stop service when user sign out
+<b class="nc">&nbsp;        clickOnCloseButton();</b>
+<b class="nc">&nbsp;        GlobalFunction.startActivity(this, SignInActivity.class);</b>
+<b class="nc">&nbsp;        finishAffinity();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public ActivityMainBinding getActivityMainBinding() {
+<b class="nc">&nbsp;        return mActivityMainBinding;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onBackPressed() {
+<b class="nc">&nbsp;        if (getSupportFragmentManager().getBackStackEntryCount() &lt; 1) {</b>
+<b class="nc">&nbsp;            showConfirmExitApp();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            GlobalFunction.hideSoftKeyboard(this);</b>
+<b class="nc">&nbsp;            super.onBackPressed();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onDestroy() {
+<b class="nc">&nbsp;        super.onDestroy();</b>
+<b class="nc">&nbsp;        LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void downloadSong(Song song) {
+<b class="nc">&nbsp;        mSong = song;</b>
+<b class="nc">&nbsp;        checkPermission();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void checkPermission() {
+<b class="nc">&nbsp;        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.TIRAMISU) {</b>
+<b class="nc">&nbsp;            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {</b>
+<b class="nc">&nbsp;                String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};</b>
+<b class="nc">&nbsp;                requestPermissions(permission, REQUEST_PERMISSION_CODE);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                GlobalFunction.startDownloadFile(this, mSong);</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            GlobalFunction.startDownloadFile(this, mSong);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @SuppressLint(&quot;MissingSuperCall&quot;)
+&nbsp;    @Override
+&nbsp;    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+&nbsp;                                           @NonNull int[] grantResults) {
+<b class="nc">&nbsp;        if (requestCode == REQUEST_PERMISSION_CODE) {</b>
+<b class="nc">&nbsp;            if (grantResults.length &gt; 0 &amp;&amp; grantResults[0] == PackageManager.PERMISSION_GRANTED) {</b>
+<b class="nc">&nbsp;                GlobalFunction.startDownloadFile(this, mSong);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.msg_permission_denied),</b>
+<b class="nc">&nbsp;                        Toast.LENGTH_SHORT).show();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

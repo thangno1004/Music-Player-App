@@ -1,0 +1,415 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GlobalFunction</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.constant</a>
+</div>
+
+<h1>Coverage Summary for Class: GlobalFunction (com.pro.music.constant)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GlobalFunction</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/54)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/145)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.constant;
+&nbsp;
+&nbsp;import android.Manifest;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.app.Activity;
+&nbsp;import android.app.DownloadManager;
+&nbsp;import android.app.PendingIntent;
+&nbsp;import android.content.ComponentName;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.content.pm.PackageManager;
+&nbsp;import android.net.Uri;
+&nbsp;import android.os.Build;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.os.Environment;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.inputmethod.InputMethodManager;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.core.app.ActivityCompat;
+&nbsp;
+&nbsp;import com.google.android.material.bottomsheet.BottomSheetBehavior;
+&nbsp;import com.google.android.material.bottomsheet.BottomSheetDialog;
+&nbsp;import com.pro.music.MyApplication;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.activity.MainActivity;
+&nbsp;import com.pro.music.activity.PlayMusicActivity;
+&nbsp;import com.pro.music.databinding.LayoutBottomSheetOptionBinding;
+&nbsp;import com.pro.music.model.Song;
+&nbsp;import com.pro.music.model.UserInfor;
+&nbsp;import com.pro.music.prefs.DataStoreManager;
+&nbsp;import com.pro.music.service.MusicReceiver;
+&nbsp;import com.pro.music.service.MusicService;
+&nbsp;import com.pro.music.utils.GlideUtils;
+&nbsp;import com.pro.music.utils.StringUtil;
+&nbsp;
+&nbsp;import java.text.Normalizer;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.regex.Pattern;
+&nbsp;
+<b class="nc">&nbsp;public class GlobalFunction {</b>
+&nbsp;
+&nbsp;    public static void startActivity(Context context, Class&lt;?&gt; clz) {
+<b class="nc">&nbsp;        Intent intent = new Intent(context, clz);</b>
+<b class="nc">&nbsp;        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);</b>
+<b class="nc">&nbsp;        context.startActivity(intent);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void startActivity(Context context, Class&lt;?&gt; clz, Bundle bundle) {
+<b class="nc">&nbsp;        Intent intent = new Intent(context, clz);</b>
+<b class="nc">&nbsp;        intent.putExtras(bundle);</b>
+<b class="nc">&nbsp;        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);</b>
+<b class="nc">&nbsp;        context.startActivity(intent);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void hideSoftKeyboard(Activity activity) {
+&nbsp;        try {
+<b class="nc">&nbsp;            InputMethodManager inputMethodManager = (InputMethodManager) activity.</b>
+<b class="nc">&nbsp;                    getSystemService(Activity.INPUT_METHOD_SERVICE);</b>
+<b class="nc">&nbsp;            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);</b>
+<b class="nc">&nbsp;        } catch (NullPointerException ex) {</b>
+<b class="nc">&nbsp;            ex.printStackTrace();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void onClickOpenGmail(Context context) {
+<b class="nc">&nbsp;        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(</b>
+&nbsp;                &quot;mailto&quot;, AboutUsConfig.GMAIL, null));
+<b class="nc">&nbsp;        context.startActivity(Intent.createChooser(emailIntent, &quot;Send Email&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void onClickOpenSkype(Context context) {
+&nbsp;        try {
+<b class="nc">&nbsp;            Uri skypeUri = Uri.parse(&quot;skype:&quot; + AboutUsConfig.SKYPE_ID + &quot;?chat&quot;);</b>
+<b class="nc">&nbsp;            context.getPackageManager().getPackageInfo(&quot;com.skype.raider&quot;, 0);</b>
+<b class="nc">&nbsp;            Intent skypeIntent = new Intent(Intent.ACTION_VIEW, skypeUri);</b>
+<b class="nc">&nbsp;            skypeIntent.setComponent(new ComponentName(&quot;com.skype.raider&quot;, &quot;com.skype.raider.Main&quot;));</b>
+<b class="nc">&nbsp;            context.startActivity(skypeIntent);</b>
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            openSkypeWebview(context);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static void openSkypeWebview(Context context) {
+&nbsp;        try {
+<b class="nc">&nbsp;            context.startActivity(new Intent(Intent.ACTION_VIEW,</b>
+<b class="nc">&nbsp;                    Uri.parse(&quot;skype:&quot; + AboutUsConfig.SKYPE_ID + &quot;?chat&quot;)));</b>
+<b class="nc">&nbsp;        } catch (Exception exception) {</b>
+<b class="nc">&nbsp;            String skypePackageName = &quot;com.skype.raider&quot;;</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(&quot;market://details?id=&quot; + skypePackageName)));</b>
+<b class="nc">&nbsp;            } catch (android.content.ActivityNotFoundException anfe) {</b>
+<b class="nc">&nbsp;                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(&quot;https://play.google.com/store/apps/details?id=&quot; + skypePackageName)));</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void onClickOpenFacebook(Context context) {
+&nbsp;        Intent intent;
+&nbsp;        try {
+<b class="nc">&nbsp;            String urlFacebook = AboutUsConfig.PAGE_FACEBOOK;</b>
+<b class="nc">&nbsp;            PackageManager packageManager = context.getPackageManager();</b>
+<b class="nc">&nbsp;            int versionCode = packageManager.getPackageInfo(&quot;com.facebook.katana&quot;, 0).versionCode;</b>
+<b class="nc">&nbsp;            if (versionCode &gt;= 3002850) { //newer versions of fb app</b>
+<b class="nc">&nbsp;                urlFacebook = &quot;fb://facewebmodal/f?href=&quot; + AboutUsConfig.LINK_FACEBOOK;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlFacebook));</b>
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AboutUsConfig.LINK_FACEBOOK));</b>
+&nbsp;        }
+<b class="nc">&nbsp;        context.startActivity(intent);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void onClickOpenYoutubeChannel(Context context) {
+<b class="nc">&nbsp;        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AboutUsConfig.LINK_YOUTUBE)));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void onClickOpenZalo(Context context) {
+<b class="nc">&nbsp;        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AboutUsConfig.ZALO_LINK)));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void callPhoneNumber(Activity activity) {
+&nbsp;        try {
+<b class="nc">&nbsp;            if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {</b>
+<b class="nc">&nbsp;                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 101);</b>
+&nbsp;                return;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            Intent callIntent = new Intent(Intent.ACTION_CALL);</b>
+<b class="nc">&nbsp;            callIntent.setData(Uri.parse(&quot;tel:&quot; + AboutUsConfig.PHONE_NUMBER));</b>
+<b class="nc">&nbsp;            activity.startActivity(callIntent);</b>
+<b class="nc">&nbsp;        } catch (Exception ex) {</b>
+<b class="nc">&nbsp;            ex.printStackTrace();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void showToastMessage(Context context, String message) {
+<b class="nc">&nbsp;        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getTextSearch(String input) {
+<b class="nc">&nbsp;        String nfdNormalizedString = Normalizer.normalize(input, Normalizer.Form.NFD);</b>
+<b class="nc">&nbsp;        Pattern pattern = Pattern.compile(&quot;\\p{InCombiningDiacriticalMarks}+&quot;);</b>
+<b class="nc">&nbsp;        return pattern.matcher(nfdNormalizedString).replaceAll(&quot;&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void startMusicService(Context ctx, int action, int songPosition) {
+<b class="nc">&nbsp;        Intent musicService = new Intent(ctx, MusicService.class);</b>
+<b class="nc">&nbsp;        musicService.putExtra(Constant.MUSIC_ACTION, action);</b>
+<b class="nc">&nbsp;        musicService.putExtra(Constant.SONG_POSITION, songPosition);</b>
+<b class="nc">&nbsp;        ctx.startService(musicService);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @SuppressLint(&quot;UnspecifiedImmutableFlag&quot;)
+&nbsp;    public static PendingIntent openMusicReceiver(Context ctx, int action) {
+<b class="nc">&nbsp;        Intent intent = new Intent(ctx, MusicReceiver.class);</b>
+<b class="nc">&nbsp;        intent.putExtra(Constant.MUSIC_ACTION, action);</b>
+<b class="nc">&nbsp;        int pendingFlag = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;</b>
+<b class="nc">&nbsp;        return PendingIntent.getBroadcast(ctx.getApplicationContext(), action, intent, pendingFlag);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static boolean isFavoriteSong(Song song) {
+<b class="nc">&nbsp;        if (song.getFavorite() == null || song.getFavorite().isEmpty()) return false;</b>
+<b class="nc">&nbsp;        List&lt;UserInfor&gt; listUsersFavorite = new ArrayList&lt;&gt;(song.getFavorite().values());</b>
+<b class="nc">&nbsp;        if (listUsersFavorite.isEmpty()) return false;</b>
+<b class="nc">&nbsp;        for (UserInfor userInfor : listUsersFavorite) {</b>
+<b class="nc">&nbsp;            if (DataStoreManager.getUser().getEmail().equals(userInfor.getEmailUser())) {</b>
+<b class="nc">&nbsp;                return true;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static UserInfor getUserFavoriteSong(Song song) {
+<b class="nc">&nbsp;        UserInfor userInfor = null;</b>
+<b class="nc">&nbsp;        if (song.getFavorite() == null || song.getFavorite().isEmpty()) return null;</b>
+<b class="nc">&nbsp;        List&lt;UserInfor&gt; listUsersFavorite = new ArrayList&lt;&gt;(song.getFavorite().values());</b>
+<b class="nc">&nbsp;        if (listUsersFavorite.isEmpty()) return null;</b>
+<b class="nc">&nbsp;        for (UserInfor userObject : listUsersFavorite) {</b>
+<b class="nc">&nbsp;            if (DataStoreManager.getUser().getEmail().equals(userObject.getEmailUser())) {</b>
+<b class="nc">&nbsp;                userInfor = userObject;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return userInfor;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void onClickFavoriteSong(Context context, Song song, boolean isFavorite) {
+<b class="nc">&nbsp;        if (context == null) return;</b>
+<b class="nc">&nbsp;        if (isFavorite) {</b>
+<b class="nc">&nbsp;            String userEmail = DataStoreManager.getUser().getEmail();</b>
+<b class="nc">&nbsp;            UserInfor userInfor = new UserInfor(System.currentTimeMillis(), userEmail);</b>
+<b class="nc">&nbsp;            MyApplication.get(context).getSongsDatabaseReference()</b>
+<b class="nc">&nbsp;                    .child(String.valueOf(song.getId()))</b>
+<b class="nc">&nbsp;                    .child(&quot;favorite&quot;)</b>
+<b class="nc">&nbsp;                    .child(String.valueOf(userInfor.getId()))</b>
+<b class="nc">&nbsp;                    .setValue(userInfor);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            UserInfor userInfor = getUserFavoriteSong(song);</b>
+<b class="nc">&nbsp;            if (userInfor != null) {</b>
+<b class="nc">&nbsp;                MyApplication.get(context).getSongsDatabaseReference()</b>
+<b class="nc">&nbsp;                        .child(String.valueOf(song.getId()))</b>
+<b class="nc">&nbsp;                        .child(&quot;favorite&quot;)</b>
+<b class="nc">&nbsp;                        .child(String.valueOf(userInfor.getId()))</b>
+<b class="nc">&nbsp;                        .removeValue();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @SuppressLint(&quot;InflateParams&quot;)
+&nbsp;    public static void handleClickMoreOptions(Activity context, Song song) {
+<b class="nc">&nbsp;        if (context == null || song == null) return;</b>
+&nbsp;
+<b class="nc">&nbsp;        LayoutBottomSheetOptionBinding binding = LayoutBottomSheetOptionBinding</b>
+<b class="nc">&nbsp;                .inflate(LayoutInflater.from(context));</b>
+&nbsp;
+<b class="nc">&nbsp;        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);</b>
+<b class="nc">&nbsp;        bottomSheetDialog.setContentView(binding.getRoot());</b>
+<b class="nc">&nbsp;        bottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);</b>
+&nbsp;
+<b class="nc">&nbsp;        GlideUtils.loadUrl(song.getImage(), binding.imgSong);</b>
+<b class="nc">&nbsp;        binding.tvSongName.setText(song.getTitle());</b>
+<b class="nc">&nbsp;        binding.tvArtist.setText(song.getArtist());</b>
+&nbsp;
+<b class="nc">&nbsp;        if (MusicService.isSongExist(song.getId())) {</b>
+<b class="nc">&nbsp;            binding.layoutRemovePlaylist.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;            binding.layoutPriority.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;            binding.layoutAddPlaylist.setVisibility(View.GONE);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            binding.layoutRemovePlaylist.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;            binding.layoutPriority.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;            binding.layoutAddPlaylist.setVisibility(View.VISIBLE);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        binding.layoutDownload.setOnClickListener(view -&gt; {</b>
+<b class="nc">&nbsp;            MainActivity mainActivity = (MainActivity) context;</b>
+<b class="nc">&nbsp;            mainActivity.downloadSong(song);</b>
+<b class="nc">&nbsp;            bottomSheetDialog.hide();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        binding.layoutPriority.setOnClickListener(view -&gt; {</b>
+<b class="nc">&nbsp;            if (MusicService.isSongPlaying(song.getId())) {</b>
+<b class="nc">&nbsp;                showToastMessage(context, context.getString(R.string.msg_song_playing));</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                for (Song songEntity : MusicService.mListSongPlaying) {</b>
+<b class="nc">&nbsp;                    songEntity.setPriority(songEntity.getId() == song.getId());</b>
+&nbsp;                }
+<b class="nc">&nbsp;                showToastMessage(context, context.getString(R.string.msg_setting_priority_successfully));</b>
+&nbsp;            }
+<b class="nc">&nbsp;            bottomSheetDialog.hide();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        binding.layoutAddPlaylist.setOnClickListener(view -&gt; {</b>
+<b class="nc">&nbsp;            if (MusicService.mListSongPlaying == null || MusicService.mListSongPlaying.isEmpty()) {</b>
+<b class="nc">&nbsp;                MusicService.clearListSongPlaying();</b>
+<b class="nc">&nbsp;                MusicService.mListSongPlaying.add(song);</b>
+<b class="nc">&nbsp;                MusicService.isPlaying = false;</b>
+<b class="nc">&nbsp;                GlobalFunction.startMusicService(context, Constant.PLAY, 0);</b>
+<b class="nc">&nbsp;                GlobalFunction.startActivity(context, PlayMusicActivity.class);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                MusicService.mListSongPlaying.add(song);</b>
+<b class="nc">&nbsp;                showToastMessage(context, context.getString(R.string.msg_add_song_playlist_success));</b>
+&nbsp;            }
+<b class="nc">&nbsp;            bottomSheetDialog.hide();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        binding.layoutRemovePlaylist.setOnClickListener(view -&gt; {</b>
+<b class="nc">&nbsp;            if (MusicService.isSongPlaying(song.getId())) {</b>
+<b class="nc">&nbsp;                showToastMessage(context, context.getString(R.string.msg_cannot_delete_song));</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                MusicService.deleteSongFromPlaylist(song.getId());</b>
+<b class="nc">&nbsp;                showToastMessage(context, context.getString(R.string.msg_delete_song_from_playlist_success));</b>
+&nbsp;            }
+<b class="nc">&nbsp;            bottomSheetDialog.hide();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        bottomSheetDialog.show();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void startDownloadFile(Activity activity, Song song) {
+<b class="nc">&nbsp;        if (activity == null || song == null || StringUtil.isEmpty(song.getUrl())) return;</b>
+<b class="nc">&nbsp;        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(song.getUrl()));</b>
+<b class="nc">&nbsp;        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE</b>
+&nbsp;                | DownloadManager.Request.NETWORK_WIFI);
+<b class="nc">&nbsp;        request.setTitle(activity.getString(R.string.title_download));</b>
+<b class="nc">&nbsp;        request.setDescription(activity.getString(R.string.message_download));</b>
+&nbsp;
+<b class="nc">&nbsp;        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);</b>
+<b class="nc">&nbsp;        String fileName = song.getTitle() + &quot;.mp3&quot;;</b>
+<b class="nc">&nbsp;        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);</b>
+&nbsp;
+<b class="nc">&nbsp;        DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);</b>
+<b class="nc">&nbsp;        if (downloadManager != null) {</b>
+<b class="nc">&nbsp;            downloadManager.enqueue(request);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

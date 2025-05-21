@@ -1,0 +1,182 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AdminChangePasswordValidator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.validator</a>
+</div>
+
+<h1>Coverage Summary for Class: AdminChangePasswordValidator (com.pro.music.validator)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AdminChangePasswordValidator</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AdminChangePasswordValidator$ChangePasswordError</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.8%
+  </span>
+  <span class="absValue">
+    (15/16)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.validator;
+&nbsp;import com.pro.music.utils.StringUtil;
+&nbsp;
+<b class="nc">&nbsp;public class AdminChangePasswordValidator {</b>
+<b class="fc">&nbsp;    public enum ChangePasswordError {</b>
+<b class="fc">&nbsp;        OK,</b>
+<b class="fc">&nbsp;        OLD_PASSWORD_EMPTY,</b>
+<b class="fc">&nbsp;        NEW_PASSWORD_EMPTY,</b>
+<b class="fc">&nbsp;        CONFIRM_PASSWORD_EMPTY,</b>
+<b class="fc">&nbsp;        OLD_PASSWORD_INCORRECT,</b>
+<b class="fc">&nbsp;        PASSWORD_MISMATCH,</b>
+<b class="fc">&nbsp;        PASSWORD_SAME_AS_OLD</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Hàm kiểm tra logic thay đổi mật khẩu.
+&nbsp;     * @param oldPass mật khẩu cũ do người dùng nhập
+&nbsp;     * @param newPass mật khẩu mới do người dùng nhập
+&nbsp;     * @param confirmPass mật khẩu xác nhận
+&nbsp;     * @param actualOldPassword mật khẩu cũ thực tế trong hệ thống
+&nbsp;     * @return kết quả kiểm tra
+&nbsp;     */
+&nbsp;    public static ChangePasswordError validateChangePassword(String oldPass, String newPass, String confirmPass, String actualOldPassword) {
+<b class="fc">&nbsp;        if (StringUtil.isEmpty(oldPass)) return ChangePasswordError.OLD_PASSWORD_EMPTY;</b>
+<b class="fc">&nbsp;        if (StringUtil.isEmpty(newPass)) return ChangePasswordError.NEW_PASSWORD_EMPTY;</b>
+<b class="fc">&nbsp;        if (StringUtil.isEmpty(confirmPass)) return ChangePasswordError.CONFIRM_PASSWORD_EMPTY;</b>
+<b class="fc">&nbsp;        if (!oldPass.equals(actualOldPassword)) return ChangePasswordError.OLD_PASSWORD_INCORRECT;</b>
+<b class="fc">&nbsp;        if (!newPass.equals(confirmPass)) return ChangePasswordError.PASSWORD_MISMATCH;</b>
+<b class="fc">&nbsp;        if (oldPass.equals(newPass)) return ChangePasswordError.PASSWORD_SAME_AS_OLD;</b>
+<b class="fc">&nbsp;        return ChangePasswordError.OK;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

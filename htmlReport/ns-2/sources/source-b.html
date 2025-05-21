@@ -1,0 +1,208 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PlayMusicActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.activity</a>
+</div>
+
+<h1>Coverage Summary for Class: PlayMusicActivity (com.pro.music.activity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlayMusicActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.activity;
+&nbsp;
+&nbsp;import android.Manifest;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.content.pm.PackageManager;
+&nbsp;import android.os.Build;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.View;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.adapter.MusicViewPagerAdapter;
+&nbsp;import com.pro.music.constant.Constant;
+&nbsp;import com.pro.music.constant.GlobalFunction;
+&nbsp;import com.pro.music.databinding.ActivityPlayMusicBinding;
+&nbsp;import com.pro.music.model.Song;
+&nbsp;import com.pro.music.prefs.DataStoreManager;
+&nbsp;import com.pro.music.service.MusicService;
+&nbsp;
+<b class="nc">&nbsp;public class PlayMusicActivity extends BaseActivity {</b>
+&nbsp;
+&nbsp;    private static final int REQUEST_PERMISSION_CODE = 10;
+&nbsp;    private Song mSong;
+&nbsp;    private ActivityPlayMusicBinding mActivityPlayMusicBinding;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        mActivityPlayMusicBinding = ActivityPlayMusicBinding.inflate(getLayoutInflater());</b>
+<b class="nc">&nbsp;        setContentView(mActivityPlayMusicBinding.getRoot());</b>
+&nbsp;
+<b class="nc">&nbsp;        initToolbar();</b>
+<b class="nc">&nbsp;        initUI();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initToolbar() {
+<b class="nc">&nbsp;        mActivityPlayMusicBinding.toolbar.imgLeft.setImageResource(R.drawable.ic_back_white);</b>
+<b class="nc">&nbsp;        mActivityPlayMusicBinding.toolbar.tvTitle.setText(R.string.music_player);</b>
+<b class="nc">&nbsp;        mActivityPlayMusicBinding.toolbar.layoutPlayAll.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;        mActivityPlayMusicBinding.toolbar.imgLeft.setOnClickListener(v -&gt; onBackPressed());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onBackPressed() {
+<b class="nc">&nbsp;        if (DataStoreManager.getUser().isAdmin()) {</b>
+<b class="nc">&nbsp;            GlobalFunction.startMusicService(PlayMusicActivity.this,</b>
+&nbsp;                    Constant.CANNEL_NOTIFICATION, MusicService.mSongPosition);
+&nbsp;        }
+<b class="nc">&nbsp;        super.onBackPressed();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initUI() {
+<b class="nc">&nbsp;        MusicViewPagerAdapter musicViewPagerAdapter = new MusicViewPagerAdapter(this);</b>
+<b class="nc">&nbsp;        mActivityPlayMusicBinding.viewpager2.setAdapter(musicViewPagerAdapter);</b>
+<b class="nc">&nbsp;        mActivityPlayMusicBinding.indicator3.setViewPager(mActivityPlayMusicBinding.viewpager2);</b>
+<b class="nc">&nbsp;        mActivityPlayMusicBinding.viewpager2.setCurrentItem(1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void downloadSong(Song song) {
+<b class="nc">&nbsp;        mSong = song;</b>
+<b class="nc">&nbsp;        checkPermission();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void checkPermission() {
+<b class="nc">&nbsp;        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.TIRAMISU) {</b>
+<b class="nc">&nbsp;            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {</b>
+<b class="nc">&nbsp;                String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};</b>
+<b class="nc">&nbsp;                requestPermissions(permission, REQUEST_PERMISSION_CODE);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                GlobalFunction.startDownloadFile(this, mSong);</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            GlobalFunction.startDownloadFile(this, mSong);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @SuppressLint(&quot;MissingSuperCall&quot;)
+&nbsp;    @Override
+&nbsp;    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+&nbsp;                                           @NonNull int[] grantResults) {
+<b class="nc">&nbsp;        if (requestCode == REQUEST_PERMISSION_CODE) {</b>
+<b class="nc">&nbsp;            if (grantResults.length &gt; 0 &amp;&amp; grantResults[0] == PackageManager.PERMISSION_GRANTED) {</b>
+<b class="nc">&nbsp;                GlobalFunction.startDownloadFile(this, mSong);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.msg_permission_denied),</b>
+<b class="nc">&nbsp;                        Toast.LENGTH_SHORT).show();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

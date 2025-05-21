@@ -1,0 +1,534 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MusicService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.service</a>
+</div>
+
+<h1>Coverage Summary for Class: MusicService (com.pro.music.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MusicService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/96)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/157)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MusicService$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/98)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/164)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.service;
+&nbsp;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.app.Notification;
+&nbsp;import android.app.NotificationManager;
+&nbsp;import android.app.PendingIntent;
+&nbsp;import android.app.Service;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.content.pm.ServiceInfo;
+&nbsp;import android.media.MediaPlayer;
+&nbsp;import android.os.Build;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.os.IBinder;
+&nbsp;import android.widget.RemoteViews;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.annotation.Nullable;
+&nbsp;import androidx.core.app.NotificationCompat;
+&nbsp;import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+&nbsp;
+&nbsp;import com.pro.music.MyApplication;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.activity.MainActivity;
+&nbsp;import com.pro.music.constant.Constant;
+&nbsp;import com.pro.music.constant.GlobalFunction;
+&nbsp;import com.pro.music.model.Song;
+&nbsp;import com.pro.music.prefs.DataStoreManager;
+&nbsp;import com.pro.music.utils.StringUtil;
+&nbsp;import com.google.firebase.database.DataSnapshot;
+&nbsp;import com.google.firebase.database.DatabaseError;
+&nbsp;import com.google.firebase.database.ValueEventListener;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Random;
+&nbsp;
+<b class="nc">&nbsp;public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {</b>
+&nbsp;
+&nbsp;    public static boolean isPlaying;
+&nbsp;    public static List&lt;Song&gt; mListSongPlaying;
+&nbsp;    public static int mSongPosition;
+&nbsp;    public static MediaPlayer mPlayer;
+&nbsp;    public static int mLengthSong;
+<b class="nc">&nbsp;    public static int mAction = -1;</b>
+&nbsp;    public static boolean isShuffle;
+&nbsp;    public static boolean isRepeat;
+&nbsp;
+&nbsp;    @Nullable
+&nbsp;    @Override
+&nbsp;    public IBinder onBind(Intent intent) {
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onCreate() {
+<b class="nc">&nbsp;        super.onCreate();</b>
+<b class="nc">&nbsp;        if (mPlayer == null) {</b>
+<b class="nc">&nbsp;            mPlayer = new MediaPlayer();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int onStartCommand(Intent intent, int flags, int startId) {
+<b class="nc">&nbsp;        Bundle bundle = intent.getExtras();</b>
+<b class="nc">&nbsp;        if (bundle != null) {</b>
+<b class="nc">&nbsp;            if (bundle.containsKey(Constant.MUSIC_ACTION)) {</b>
+<b class="nc">&nbsp;                mAction = bundle.getInt(Constant.MUSIC_ACTION);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if (bundle.containsKey(Constant.SONG_POSITION)) {</b>
+<b class="nc">&nbsp;                mSongPosition = bundle.getInt(Constant.SONG_POSITION);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            handleActionMusic(mAction);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return START_NOT_STICKY;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void handleActionMusic(int action) {
+<b class="nc">&nbsp;        switch (action) {</b>
+&nbsp;            case Constant.PLAY:
+<b class="nc">&nbsp;                playSong();</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Constant.PREVIOUS:
+<b class="nc">&nbsp;                prevSong();</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Constant.NEXT:
+<b class="nc">&nbsp;                nextSong();</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Constant.PAUSE:
+<b class="nc">&nbsp;                pauseSong();</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Constant.RESUME:
+<b class="nc">&nbsp;                resumeSong();</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Constant.CANNEL_NOTIFICATION:
+<b class="nc">&nbsp;                cancelNotification();</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            default:
+&nbsp;                break;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void playSong() {
+<b class="nc">&nbsp;        String songUrl = mListSongPlaying.get(mSongPosition).getUrl();</b>
+<b class="nc">&nbsp;        if (!StringUtil.isEmpty(songUrl)) {</b>
+<b class="nc">&nbsp;            playMediaPlayer(songUrl);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        mListSongPlaying.get(mSongPosition).setPriority(false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void pauseSong() {
+<b class="nc">&nbsp;        if (mPlayer != null &amp;&amp; mPlayer.isPlaying()) {</b>
+<b class="nc">&nbsp;            mPlayer.pause();</b>
+<b class="nc">&nbsp;            isPlaying = false;</b>
+<b class="nc">&nbsp;            sendMusicNotification();</b>
+<b class="nc">&nbsp;            sendBroadcastChangeListener();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void cancelNotification() {
+<b class="nc">&nbsp;        if (mPlayer != null &amp;&amp; mPlayer.isPlaying()) {</b>
+<b class="nc">&nbsp;            mPlayer.pause();</b>
+<b class="nc">&nbsp;            isPlaying = false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        clearListSongPlaying();</b>
+<b class="nc">&nbsp;        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);</b>
+<b class="nc">&nbsp;        notificationManager.cancelAll();</b>
+<b class="nc">&nbsp;        sendBroadcastChangeListener();</b>
+<b class="nc">&nbsp;        stopSelf();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void resumeSong() {
+<b class="nc">&nbsp;        if (mPlayer != null) {</b>
+<b class="nc">&nbsp;            mPlayer.start();</b>
+<b class="nc">&nbsp;            isPlaying = true;</b>
+<b class="nc">&nbsp;            sendMusicNotification();</b>
+<b class="nc">&nbsp;            sendBroadcastChangeListener();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void prevSong() {
+&nbsp;        int newPosition;
+<b class="nc">&nbsp;        if (getPositionPriority() &gt; 0) {</b>
+<b class="nc">&nbsp;            newPosition = getPositionPriority();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            if (mListSongPlaying.size() &gt; 1) {</b>
+<b class="nc">&nbsp;                if (isShuffle) {</b>
+<b class="nc">&nbsp;                    newPosition = new Random().nextInt(mListSongPlaying.size());</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    if (isRepeat)</b>
+<b class="nc">&nbsp;                        newPosition = mSongPosition;</b>
+<b class="nc">&nbsp;                    else if (mSongPosition &gt; 0) {</b>
+<b class="nc">&nbsp;                        newPosition = mSongPosition - 1;</b>
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        newPosition = mListSongPlaying.size() - 1;</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            } else {
+<b class="nc">&nbsp;                newPosition = 0;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        mSongPosition = newPosition;</b>
+<b class="nc">&nbsp;        sendMusicNotification();</b>
+<b class="nc">&nbsp;        sendBroadcastChangeListener();</b>
+<b class="nc">&nbsp;        playSong();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void nextSong() {
+&nbsp;        int newPosition;
+<b class="nc">&nbsp;        if (getPositionPriority() &gt; 0) {</b>
+<b class="nc">&nbsp;            newPosition = getPositionPriority();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            if (mListSongPlaying.size() &gt; 1) {</b>
+<b class="nc">&nbsp;                if (isShuffle) {</b>
+<b class="nc">&nbsp;                    newPosition = new Random().nextInt(mListSongPlaying.size());</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    if (isRepeat)</b>
+<b class="nc">&nbsp;                        newPosition = mSongPosition;</b>
+<b class="nc">&nbsp;                    else if (mSongPosition &lt; mListSongPlaying.size() - 1) {</b>
+<b class="nc">&nbsp;                        newPosition = mSongPosition + 1;</b>
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        newPosition = 0;</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            } else {
+<b class="nc">&nbsp;                newPosition = 0;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        mSongPosition = newPosition;</b>
+<b class="nc">&nbsp;        sendMusicNotification();</b>
+<b class="nc">&nbsp;        sendBroadcastChangeListener();</b>
+<b class="nc">&nbsp;        playSong();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void playMediaPlayer(String songUrl) {
+&nbsp;        try {
+<b class="nc">&nbsp;            if (mPlayer.isPlaying()) {</b>
+<b class="nc">&nbsp;                mPlayer.stop();</b>
+&nbsp;            }
+<b class="nc">&nbsp;            mPlayer.reset();</b>
+<b class="nc">&nbsp;            mPlayer.setDataSource(songUrl);</b>
+<b class="nc">&nbsp;            mPlayer.prepareAsync();</b>
+<b class="nc">&nbsp;            initControl();</b>
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void initControl() {
+<b class="nc">&nbsp;        mPlayer.setOnPreparedListener(this);</b>
+<b class="nc">&nbsp;        mPlayer.setOnCompletionListener(this);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void sendMusicNotification() {
+<b class="nc">&nbsp;        if (DataStoreManager.getUser().isAdmin()) return;</b>
+&nbsp;
+<b class="nc">&nbsp;        Song song = mListSongPlaying.get(mSongPosition);</b>
+&nbsp;
+<b class="nc">&nbsp;        int pendingFlag = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;</b>
+<b class="nc">&nbsp;        Intent intent = new Intent(this, MainActivity.class);</b>
+&nbsp;        @SuppressLint(&quot;UnspecifiedImmutableFlag&quot;)
+<b class="nc">&nbsp;        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, pendingFlag);</b>
+&nbsp;
+<b class="nc">&nbsp;        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.layout_push_notification_music);</b>
+<b class="nc">&nbsp;        remoteViews.setTextViewText(R.id.tv_song_name, song.getTitle());</b>
+&nbsp;
+&nbsp;        // Set listener
+<b class="nc">&nbsp;        remoteViews.setOnClickPendingIntent(R.id.img_previous, GlobalFunction.openMusicReceiver(this, Constant.PREVIOUS));</b>
+<b class="nc">&nbsp;        remoteViews.setOnClickPendingIntent(R.id.img_next, GlobalFunction.openMusicReceiver(this, Constant.NEXT));</b>
+<b class="nc">&nbsp;        if (isPlaying) {</b>
+<b class="nc">&nbsp;            remoteViews.setImageViewResource(R.id.img_play, R.drawable.ic_pause_gray);</b>
+<b class="nc">&nbsp;            remoteViews.setOnClickPendingIntent(R.id.img_play, GlobalFunction.openMusicReceiver(this, Constant.PAUSE));</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            remoteViews.setImageViewResource(R.id.img_play, R.drawable.ic_play_gray);</b>
+<b class="nc">&nbsp;            remoteViews.setOnClickPendingIntent(R.id.img_play, GlobalFunction.openMusicReceiver(this, Constant.RESUME));</b>
+&nbsp;        }
+<b class="nc">&nbsp;        remoteViews.setOnClickPendingIntent(R.id.img_close, GlobalFunction.openMusicReceiver(this, Constant.CANNEL_NOTIFICATION));</b>
+&nbsp;
+<b class="nc">&nbsp;        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, MyApplication.CHANNEL_ID)</b>
+<b class="nc">&nbsp;                .setSmallIcon(R.drawable.ic_small_push_notification)</b>
+<b class="nc">&nbsp;                .setContentIntent(pendingIntent)</b>
+<b class="nc">&nbsp;                .setSound(null);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.TIRAMISU) {</b>
+<b class="nc">&nbsp;            builder.setCustomBigContentView(remoteViews);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            builder.setCustomContentView(remoteViews);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Notification notification = builder.build();</b>
+<b class="nc">&nbsp;        if (Build.VERSION.SDK_INT &gt;= 34) {</b>
+<b class="nc">&nbsp;            startForeground(1, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            startForeground(1, notification);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void clearListSongPlaying() {
+<b class="nc">&nbsp;        if (mListSongPlaying != null) {</b>
+<b class="nc">&nbsp;            mListSongPlaying.clear();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            mListSongPlaying = new ArrayList&lt;&gt;();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static boolean isSongExist(long songId) {
+<b class="nc">&nbsp;        if (mListSongPlaying == null || mListSongPlaying.isEmpty()) return false;</b>
+<b class="nc">&nbsp;        boolean isExist = false;</b>
+<b class="nc">&nbsp;        for (Song song : mListSongPlaying) {</b>
+<b class="nc">&nbsp;            if (songId == song.getId()) {</b>
+<b class="nc">&nbsp;                isExist = true;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return isExist;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static boolean isSongPlaying(long songId) {
+<b class="nc">&nbsp;        if (mListSongPlaying == null || mListSongPlaying.isEmpty()) return false;</b>
+<b class="nc">&nbsp;        Song currentSong = mListSongPlaying.get(mSongPosition);</b>
+<b class="nc">&nbsp;        return songId == currentSong.getId();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static int getPositionPriority() {
+<b class="nc">&nbsp;        if (mListSongPlaying == null || mListSongPlaying.isEmpty()) return 0;</b>
+<b class="nc">&nbsp;        int position = 0;</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; mListSongPlaying.size(); i++) {</b>
+<b class="nc">&nbsp;            if (mListSongPlaying.get(i).isPriority()) {</b>
+<b class="nc">&nbsp;                position = i;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return position;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void deleteSongFromPlaylist(long songId) {
+<b class="nc">&nbsp;        if (mListSongPlaying == null || mListSongPlaying.isEmpty()) return;</b>
+<b class="nc">&nbsp;        int songPosition = 0;</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; mListSongPlaying.size(); i++) {</b>
+<b class="nc">&nbsp;            if (songId == mListSongPlaying.get(i).getId()) {</b>
+<b class="nc">&nbsp;                songPosition = i;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        for (Song song : mListSongPlaying) {</b>
+<b class="nc">&nbsp;            if (songId == song.getId()) {</b>
+<b class="nc">&nbsp;                mListSongPlaying.remove(song);</b>
+<b class="nc">&nbsp;                if (mSongPosition &gt; songPosition) {</b>
+<b class="nc">&nbsp;                    mSongPosition = mSongPosition - 1;</b>
+&nbsp;                }
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onCompletion(MediaPlayer mp) {
+<b class="nc">&nbsp;        mAction = Constant.NEXT;</b>
+<b class="nc">&nbsp;        nextSong();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onPrepared(MediaPlayer mp) {
+<b class="nc">&nbsp;        mLengthSong = mPlayer.getDuration();</b>
+<b class="nc">&nbsp;        mp.start();</b>
+<b class="nc">&nbsp;        isPlaying = true;</b>
+<b class="nc">&nbsp;        mAction = Constant.PLAY;</b>
+<b class="nc">&nbsp;        sendMusicNotification();</b>
+<b class="nc">&nbsp;        sendBroadcastChangeListener();</b>
+<b class="nc">&nbsp;        changeCountViewSong();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void sendBroadcastChangeListener() {
+<b class="nc">&nbsp;        Intent intent = new Intent(Constant.CHANGE_LISTENER);</b>
+<b class="nc">&nbsp;        intent.putExtra(Constant.MUSIC_ACTION, mAction);</b>
+<b class="nc">&nbsp;        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void changeCountViewSong() {
+<b class="nc">&nbsp;        if (DataStoreManager.getUser().isAdmin()) return;</b>
+&nbsp;
+<b class="nc">&nbsp;        long songId = mListSongPlaying.get(mSongPosition).getId();</b>
+<b class="nc">&nbsp;        MyApplication.get(this).getCountViewDatabaseReference(songId)</b>
+<b class="nc">&nbsp;                .addValueEventListener(new ValueEventListener() {</b>
+&nbsp;                    @Override
+&nbsp;                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+<b class="nc">&nbsp;                        Integer currentCount = snapshot.getValue(Integer.class);</b>
+<b class="nc">&nbsp;                        if (currentCount != null) {</b>
+<b class="nc">&nbsp;                            int newCount = currentCount + 1;</b>
+<b class="nc">&nbsp;                            MyApplication.get(MusicService.this).getCountViewDatabaseReference(songId).removeEventListener(this);</b>
+<b class="nc">&nbsp;                            MyApplication.get(MusicService.this).getCountViewDatabaseReference(songId).setValue(newCount);</b>
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;
+&nbsp;                    @Override
+<b class="nc">&nbsp;                    public void onCancelled(@NonNull DatabaseError error) {}</b>
+&nbsp;                });
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onDestroy() {
+<b class="nc">&nbsp;        super.onDestroy();</b>
+<b class="nc">&nbsp;        if (mPlayer != null) {</b>
+<b class="nc">&nbsp;            mPlayer.release();</b>
+<b class="nc">&nbsp;            mPlayer = null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

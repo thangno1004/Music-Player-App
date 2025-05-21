@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 public class ForgotPasswordValidatorTest {
 
     /**
+     * TC 4.1
      * Trường hợp kiểm tra: Email rỗng.
      * Mong đợi: Hàm trả về lỗi EMAIL_REQUIRED vì email không được để trống.
      */
@@ -17,6 +18,7 @@ public class ForgotPasswordValidatorTest {
     }
 
     /**
+     * TC 4.2
      * Trường hợp kiểm tra: Email sai định dạng (không đúng chuẩn email).
      * Mong đợi: Hàm trả về lỗi EMAIL_INVALID vì không phải định dạng email hợp lệ.
      */
@@ -26,6 +28,7 @@ public class ForgotPasswordValidatorTest {
     }
 
     /**
+     * TC 4.3
      * Trường hợp kiểm tra: Email hợp lệ (đúng định dạng).
      * Mong đợi: Hàm trả về OK, nghĩa là dữ liệu đầu vào hợp lệ.
      */

@@ -1,0 +1,228 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SongPlayingAdapter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.adapter</a>
+</div>
+
+<h1>Coverage Summary for Class: SongPlayingAdapter (com.pro.music.adapter)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SongPlayingAdapter</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SongPlayingAdapter$SongPlayingViewHolder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/27)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.adapter;
+&nbsp;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.databinding.ItemSongPlayingBinding;
+&nbsp;import com.pro.music.listener.IOnClickSongPlayingItemListener;
+&nbsp;import com.pro.music.model.Song;
+&nbsp;import com.pro.music.utils.GlideUtils;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class SongPlayingAdapter extends RecyclerView.Adapter&lt;SongPlayingAdapter.SongPlayingViewHolder&gt; {
+&nbsp;
+&nbsp;    private final List&lt;Song&gt; mListSongs;
+&nbsp;    public final IOnClickSongPlayingItemListener iOnClickSongPlayingItemListener;
+&nbsp;
+<b class="nc">&nbsp;    public SongPlayingAdapter(List&lt;Song&gt; mListSongs, IOnClickSongPlayingItemListener iOnClickSongPlayingItemListener) {</b>
+<b class="nc">&nbsp;        this.mListSongs = mListSongs;</b>
+<b class="nc">&nbsp;        this.iOnClickSongPlayingItemListener = iOnClickSongPlayingItemListener;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @NonNull
+&nbsp;    @Override
+&nbsp;    public SongPlayingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+<b class="nc">&nbsp;        ItemSongPlayingBinding itemSongPlayingBinding = ItemSongPlayingBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);</b>
+<b class="nc">&nbsp;        return new SongPlayingViewHolder(itemSongPlayingBinding);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onBindViewHolder(@NonNull SongPlayingViewHolder holder, int position) {
+<b class="nc">&nbsp;        Song song = mListSongs.get(position);</b>
+<b class="nc">&nbsp;        if (song == null) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        if (song.isPlaying()) {</b>
+<b class="nc">&nbsp;            holder.mItemSongPlayingBinding.layoutItem.setBackgroundResource(R.color.background_bottom);</b>
+<b class="nc">&nbsp;            holder.mItemSongPlayingBinding.imgAction.setImageResource(R.drawable.ic_play_black);</b>
+<b class="nc">&nbsp;            holder.mItemSongPlayingBinding.imgAction.setOnClickListener(null);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            holder.mItemSongPlayingBinding.layoutItem.setBackgroundResource(R.color.white);</b>
+<b class="nc">&nbsp;            holder.mItemSongPlayingBinding.imgAction.setImageResource(R.drawable.ic_delete_black);</b>
+<b class="nc">&nbsp;            holder.mItemSongPlayingBinding.imgAction.setOnClickListener(</b>
+<b class="nc">&nbsp;                    v -&gt; iOnClickSongPlayingItemListener.onClickRemoveFromPlaylist(holder.getAdapterPosition()));</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (song.isPriority()) {</b>
+<b class="nc">&nbsp;            holder.mItemSongPlayingBinding.tvPrioritized.setVisibility(View.VISIBLE);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            holder.mItemSongPlayingBinding.tvPrioritized.setVisibility(View.GONE);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        GlideUtils.loadUrl(song.getImage(), holder.mItemSongPlayingBinding.imgSong);</b>
+<b class="nc">&nbsp;        holder.mItemSongPlayingBinding.tvSongName.setText(song.getTitle());</b>
+<b class="nc">&nbsp;        holder.mItemSongPlayingBinding.tvArtist.setText(song.getArtist());</b>
+&nbsp;
+<b class="nc">&nbsp;        holder.mItemSongPlayingBinding.layoutSong.setOnClickListener(v</b>
+<b class="nc">&nbsp;                -&gt; iOnClickSongPlayingItemListener.onClickItemSongPlaying(holder.getAdapterPosition()));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getItemCount() {
+<b class="nc">&nbsp;        return null == mListSongs ? 0 : mListSongs.size();</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public static class SongPlayingViewHolder extends RecyclerView.ViewHolder {</b>
+&nbsp;
+&nbsp;        private final ItemSongPlayingBinding mItemSongPlayingBinding;
+&nbsp;
+&nbsp;        public SongPlayingViewHolder(ItemSongPlayingBinding itemSongPlayingBinding) {
+<b class="nc">&nbsp;            super(itemSongPlayingBinding.getRoot());</b>
+<b class="nc">&nbsp;            this.mItemSongPlayingBinding = itemSongPlayingBinding;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

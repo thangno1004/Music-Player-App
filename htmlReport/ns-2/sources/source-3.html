@@ -1,0 +1,466 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AdminAddSongActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.activity</a>
+</div>
+
+<h1>Coverage Summary for Class: AdminAddSongActivity (com.pro.music.activity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AdminAddSongActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/76)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AdminAddSongActivity$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">AdminAddSongActivity$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">AdminAddSongActivity$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">AdminAddSongActivity$2$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">AdminAddSongActivity$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/30)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/107)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.activity;
+&nbsp;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.View;
+&nbsp;import android.widget.AdapterView;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;
+&nbsp;import com.google.firebase.database.DataSnapshot;
+&nbsp;import com.google.firebase.database.DatabaseError;
+&nbsp;import com.google.firebase.database.ValueEventListener;
+&nbsp;import com.pro.music.MyApplication;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.adapter.AdminSelectAdapter;
+&nbsp;import com.pro.music.constant.Constant;
+&nbsp;import com.pro.music.constant.GlobalFunction;
+&nbsp;import com.pro.music.databinding.ActivityAdminAddSongBinding;
+&nbsp;import com.pro.music.model.Artist;
+&nbsp;import com.pro.music.model.Category;
+&nbsp;import com.pro.music.model.SelectObject;
+&nbsp;import com.pro.music.model.Song;
+&nbsp;import com.pro.music.utils.StringUtil;
+&nbsp;import com.pro.music.validator.AddOrEditSongValidator;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+<b class="nc">&nbsp;public class AdminAddSongActivity extends BaseActivity {</b>
+&nbsp;
+&nbsp;    private ActivityAdminAddSongBinding binding;
+&nbsp;    private boolean isUpdate;
+&nbsp;    private Song mSong;
+&nbsp;    private SelectObject mCategorySelected;
+&nbsp;    private SelectObject mArtistSelected;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        binding = ActivityAdminAddSongBinding.inflate(getLayoutInflater());</b>
+<b class="nc">&nbsp;        setContentView(binding.getRoot());</b>
+&nbsp;
+<b class="nc">&nbsp;        loadDataIntent();</b>
+<b class="nc">&nbsp;        initToolbar();</b>
+<b class="nc">&nbsp;        initView();</b>
+&nbsp;
+<b class="nc">&nbsp;        binding.btnAddOrEdit.setOnClickListener(v -&gt; addOrEditSong());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void loadDataIntent() {
+<b class="nc">&nbsp;        Bundle bundleReceived = getIntent().getExtras();</b>
+<b class="nc">&nbsp;        if (bundleReceived != null) {</b>
+<b class="nc">&nbsp;            isUpdate = true;</b>
+<b class="nc">&nbsp;            mSong = (Song) bundleReceived.get(Constant.KEY_INTENT_SONG_OBJECT);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initToolbar() {
+<b class="nc">&nbsp;        binding.toolbar.imgLeft.setImageResource(R.drawable.ic_back_white);</b>
+<b class="nc">&nbsp;        binding.toolbar.layoutPlayAll.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;        binding.toolbar.imgLeft.setOnClickListener(v -&gt; onBackPressed());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initView() {
+<b class="nc">&nbsp;        if (isUpdate) {</b>
+<b class="nc">&nbsp;            binding.toolbar.tvTitle.setText(getString(R.string.label_update_song));</b>
+<b class="nc">&nbsp;            binding.btnAddOrEdit.setText(getString(R.string.action_edit));</b>
+&nbsp;
+<b class="nc">&nbsp;            binding.edtName.setText(mSong.getTitle());</b>
+<b class="nc">&nbsp;            binding.edtImage.setText(mSong.getImage());</b>
+<b class="nc">&nbsp;            binding.edtLink.setText(mSong.getUrl());</b>
+<b class="nc">&nbsp;            binding.chbFeatured.setChecked(mSong.isFeatured());</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            binding.toolbar.tvTitle.setText(getString(R.string.label_add_song));</b>
+<b class="nc">&nbsp;            binding.btnAddOrEdit.setText(getString(R.string.action_add));</b>
+&nbsp;        }
+<b class="nc">&nbsp;        loadListCategory();</b>
+<b class="nc">&nbsp;        loadListArtist();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void loadListCategory() {
+<b class="nc">&nbsp;        MyApplication.get(this).getCategoryDatabaseReference()</b>
+<b class="nc">&nbsp;                .addValueEventListener(new ValueEventListener() {</b>
+&nbsp;                    @Override
+&nbsp;                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+<b class="nc">&nbsp;                        List&lt;SelectObject&gt; list = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {</b>
+<b class="nc">&nbsp;                            Category category = dataSnapshot.getValue(Category.class);</b>
+<b class="nc">&nbsp;                            if (category == null) return;</b>
+<b class="nc">&nbsp;                            list.add(0, new SelectObject(category.getId(), category.getName()));</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                        AdminSelectAdapter adapter = new AdminSelectAdapter(AdminAddSongActivity.this,</b>
+&nbsp;                                R.layout.item_choose_option, list);
+<b class="nc">&nbsp;                        binding.spnCategory.setAdapter(adapter);</b>
+<b class="nc">&nbsp;                        binding.spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {</b>
+&nbsp;                            @Override
+&nbsp;                            public void onItemSelected(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+<b class="nc">&nbsp;                                mCategorySelected = adapter.getItem(position);</b>
+&nbsp;                            }
+&nbsp;
+&nbsp;                            @Override
+<b class="nc">&nbsp;                            public void onNothingSelected(AdapterView&lt;?&gt; parent) {}</b>
+&nbsp;                        });
+&nbsp;
+<b class="nc">&nbsp;                        if (mSong != null &amp;&amp; mSong.getCategoryId() &gt; 0) {</b>
+<b class="nc">&nbsp;                            binding.spnCategory.setSelection(getPositionSelected(list, mSong.getCategoryId()));</b>
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;
+&nbsp;                    @Override
+<b class="nc">&nbsp;                    public void onCancelled(@NonNull DatabaseError error) {}</b>
+&nbsp;                });
+&nbsp;    }
+&nbsp;
+&nbsp;    private void loadListArtist() {
+<b class="nc">&nbsp;        MyApplication.get(this).getArtistDatabaseReference()</b>
+<b class="nc">&nbsp;                .addValueEventListener(new ValueEventListener() {</b>
+&nbsp;                    @Override
+&nbsp;                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+<b class="nc">&nbsp;                        List&lt;SelectObject&gt; list = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {</b>
+<b class="nc">&nbsp;                            Artist artist = dataSnapshot.getValue(Artist.class);</b>
+<b class="nc">&nbsp;                            if (artist == null) return;</b>
+<b class="nc">&nbsp;                            list.add(0, new SelectObject(artist.getId(), artist.getName()));</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                        AdminSelectAdapter adapter = new AdminSelectAdapter(AdminAddSongActivity.this,</b>
+&nbsp;                                R.layout.item_choose_option, list);
+<b class="nc">&nbsp;                        binding.spnArtist.setAdapter(adapter);</b>
+<b class="nc">&nbsp;                        binding.spnArtist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {</b>
+&nbsp;                            @Override
+&nbsp;                            public void onItemSelected(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+<b class="nc">&nbsp;                                mArtistSelected = adapter.getItem(position);</b>
+&nbsp;                            }
+&nbsp;
+&nbsp;                            @Override
+<b class="nc">&nbsp;                            public void onNothingSelected(AdapterView&lt;?&gt; parent) {}</b>
+&nbsp;                        });
+&nbsp;
+<b class="nc">&nbsp;                        if (mSong != null &amp;&amp; mSong.getArtistId() &gt; 0) {</b>
+<b class="nc">&nbsp;                            binding.spnArtist.setSelection(getPositionSelected(list, mSong.getArtistId()));</b>
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;
+&nbsp;                    @Override
+<b class="nc">&nbsp;                    public void onCancelled(@NonNull DatabaseError error) {}</b>
+&nbsp;                });
+&nbsp;    }
+&nbsp;
+&nbsp;    private int getPositionSelected(List&lt;SelectObject&gt; list, long id) {
+<b class="nc">&nbsp;        int position = 0;</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; list.size(); i++) {</b>
+<b class="nc">&nbsp;            if (id == list.get(i).getId()) {</b>
+<b class="nc">&nbsp;                position = i;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return position;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void addOrEditSong() {
+<b class="nc">&nbsp;        String strName = binding.edtName.getText().toString().trim();</b>
+<b class="nc">&nbsp;        String strImage = binding.edtImage.getText().toString().trim();</b>
+<b class="nc">&nbsp;        String strUrl = binding.edtLink.getText().toString().trim();</b>
+&nbsp;
+<b class="nc">&nbsp;        AddOrEditSongValidator.SongInputError inputError = AddOrEditSongValidator.validate(strName, strImage, strUrl);</b>
+<b class="nc">&nbsp;        switch (inputError) {</b>
+&nbsp;            case NAME_REQUIRED:
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.msg_name_require), Toast.LENGTH_SHORT).show();</b>
+&nbsp;                return;
+&nbsp;            case IMAGE_REQUIRED:
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.msg_image_require), Toast.LENGTH_SHORT).show();</b>
+&nbsp;                return;
+&nbsp;            case URL_REQUIRED:
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.msg_url_require), Toast.LENGTH_SHORT).show();</b>
+&nbsp;                return;
+&nbsp;            case OK:
+&nbsp;                break;
+&nbsp;        }
+&nbsp;
+&nbsp;        // Update song
+<b class="nc">&nbsp;        if (isUpdate) {</b>
+<b class="nc">&nbsp;            showProgressDialog(true);</b>
+<b class="nc">&nbsp;            Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;            map.put(&quot;title&quot;, strName);</b>
+<b class="nc">&nbsp;            map.put(&quot;image&quot;, strImage);</b>
+<b class="nc">&nbsp;            map.put(&quot;url&quot;, strUrl);</b>
+<b class="nc">&nbsp;            map.put(&quot;featured&quot;, binding.chbFeatured.isChecked());</b>
+<b class="nc">&nbsp;            map.put(&quot;categoryId&quot;, mCategorySelected.getId());</b>
+<b class="nc">&nbsp;            map.put(&quot;category&quot;, mCategorySelected.getName());</b>
+<b class="nc">&nbsp;            map.put(&quot;artistId&quot;, mArtistSelected.getId());</b>
+<b class="nc">&nbsp;            map.put(&quot;artist&quot;, mArtistSelected.getName());</b>
+&nbsp;
+<b class="nc">&nbsp;            MyApplication.get(this).getSongsDatabaseReference()</b>
+<b class="nc">&nbsp;                    .child(String.valueOf(mSong.getId())).updateChildren(map, (error, ref) -&gt; {</b>
+<b class="nc">&nbsp;                showProgressDialog(false);</b>
+<b class="nc">&nbsp;                Toast.makeText(AdminAddSongActivity.this,</b>
+<b class="nc">&nbsp;                        getString(R.string.msg_edit_song_success), Toast.LENGTH_SHORT).show();</b>
+<b class="nc">&nbsp;                GlobalFunction.hideSoftKeyboard(this);</b>
+&nbsp;            });
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+&nbsp;        // Add song
+<b class="nc">&nbsp;        showProgressDialog(true);</b>
+<b class="nc">&nbsp;        long songId = System.currentTimeMillis();</b>
+<b class="nc">&nbsp;        Song song = new Song(songId, strName, strImage, strUrl, mArtistSelected.getId(),</b>
+<b class="nc">&nbsp;                mArtistSelected.getName(), mCategorySelected.getId(), mCategorySelected.getName(),</b>
+<b class="nc">&nbsp;                binding.chbFeatured.isChecked());</b>
+<b class="nc">&nbsp;        MyApplication.get(this).getSongsDatabaseReference()</b>
+<b class="nc">&nbsp;                .child(String.valueOf(songId)).setValue(song, (error, ref) -&gt; {</b>
+<b class="nc">&nbsp;            showProgressDialog(false);</b>
+<b class="nc">&nbsp;            binding.edtName.setText(&quot;&quot;);</b>
+<b class="nc">&nbsp;            binding.edtImage.setText(&quot;&quot;);</b>
+<b class="nc">&nbsp;            binding.edtLink.setText(&quot;&quot;);</b>
+<b class="nc">&nbsp;            binding.chbFeatured.setChecked(false);</b>
+<b class="nc">&nbsp;            binding.spnCategory.setSelection(0);</b>
+<b class="nc">&nbsp;            binding.spnArtist.setSelection(0);</b>
+<b class="nc">&nbsp;            GlobalFunction.hideSoftKeyboard(this);</b>
+<b class="nc">&nbsp;            Toast.makeText(this, getString(R.string.msg_add_song_success), Toast.LENGTH_SHORT).show();</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,271 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AdminAddArtistActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.activity</a>
+</div>
+
+<h1>Coverage Summary for Class: AdminAddArtistActivity (com.pro.music.activity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AdminAddArtistActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/49)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AdminAddArtistActivity$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/50)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.activity;
+&nbsp;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.View;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import com.pro.music.MyApplication;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.constant.Constant;
+&nbsp;import com.pro.music.constant.GlobalFunction;
+&nbsp;import com.pro.music.databinding.ActivityAdminAddArtistBinding;
+&nbsp;import com.pro.music.model.Artist;
+&nbsp;import com.pro.music.utils.StringUtil;
+&nbsp;import com.pro.music.validator.addOrEditArtistValidator;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;
+<b class="nc">&nbsp;public class AdminAddArtistActivity extends BaseActivity {</b>
+&nbsp;
+&nbsp;    private ActivityAdminAddArtistBinding binding;
+&nbsp;    private boolean isUpdate;
+&nbsp;    private Artist mArtist;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        binding = ActivityAdminAddArtistBinding.inflate(getLayoutInflater());</b>
+<b class="nc">&nbsp;        setContentView(binding.getRoot());</b>
+&nbsp;
+<b class="nc">&nbsp;        loadDataIntent();</b>
+<b class="nc">&nbsp;        initToolbar();</b>
+<b class="nc">&nbsp;        initView();</b>
+&nbsp;
+<b class="nc">&nbsp;        binding.btnAddOrEdit.setOnClickListener(v -&gt; addOrEditArtist());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void loadDataIntent() {
+<b class="nc">&nbsp;        Bundle bundleReceived = getIntent().getExtras();</b>
+<b class="nc">&nbsp;        if (bundleReceived != null) {</b>
+<b class="nc">&nbsp;            isUpdate = true;</b>
+<b class="nc">&nbsp;            mArtist = (Artist) bundleReceived.get(Constant.KEY_INTENT_ARTIST_OBJECT);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initToolbar() {
+<b class="nc">&nbsp;        binding.toolbar.imgLeft.setImageResource(R.drawable.ic_back_white);</b>
+<b class="nc">&nbsp;        binding.toolbar.layoutPlayAll.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;        binding.toolbar.imgLeft.setOnClickListener(v -&gt; onBackPressed());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initView() {
+<b class="nc">&nbsp;        if (isUpdate) {</b>
+<b class="nc">&nbsp;            binding.toolbar.tvTitle.setText(getString(R.string.label_update_artist));</b>
+<b class="nc">&nbsp;            binding.btnAddOrEdit.setText(getString(R.string.action_edit));</b>
+&nbsp;
+<b class="nc">&nbsp;            binding.edtName.setText(mArtist.getName());</b>
+<b class="nc">&nbsp;            binding.edtImage.setText(mArtist.getImage());</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            binding.toolbar.tvTitle.setText(getString(R.string.label_add_artist));</b>
+<b class="nc">&nbsp;            binding.btnAddOrEdit.setText(getString(R.string.action_add));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void addOrEditArtist() {
+<b class="nc">&nbsp;        String strName = binding.edtName.getText().toString().trim();</b>
+<b class="nc">&nbsp;        String strImage = binding.edtImage.getText().toString().trim();</b>
+&nbsp;
+&nbsp;//        if (StringUtil.isEmpty(strName)) {
+&nbsp;//            Toast.makeText(this, getString(R.string.msg_name_require), Toast.LENGTH_SHORT).show();
+&nbsp;//            return;
+&nbsp;//        }
+&nbsp;//
+&nbsp;//        if (StringUtil.isEmpty(strImage)) {
+&nbsp;//            Toast.makeText(this, getString(R.string.msg_image_require), Toast.LENGTH_SHORT).show();
+&nbsp;//            return;
+&nbsp;//        }
+<b class="nc">&nbsp;        addOrEditArtistValidator.ArtistInputError inputError = addOrEditArtistValidator.validate(strName, strImage);</b>
+&nbsp;
+<b class="nc">&nbsp;        switch (inputError) {</b>
+&nbsp;            case NAME_REQUIRED:
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.msg_name_require), Toast.LENGTH_SHORT).show();</b>
+&nbsp;                return;
+&nbsp;            case IMAGE_REQUIRED:
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.msg_image_require), Toast.LENGTH_SHORT).show();</b>
+&nbsp;                return;
+&nbsp;            case OK:
+&nbsp;                break;
+&nbsp;        }
+&nbsp;
+&nbsp;
+&nbsp;        // Update artist
+<b class="nc">&nbsp;        if (isUpdate) {</b>
+<b class="nc">&nbsp;            showProgressDialog(true);</b>
+<b class="nc">&nbsp;            Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;            map.put(&quot;name&quot;, strName);</b>
+<b class="nc">&nbsp;            map.put(&quot;image&quot;, strImage);</b>
+&nbsp;
+<b class="nc">&nbsp;            MyApplication.get(this).getArtistDatabaseReference()</b>
+<b class="nc">&nbsp;                    .child(String.valueOf(mArtist.getId())).updateChildren(map, (error, ref) -&gt; {</b>
+<b class="nc">&nbsp;                showProgressDialog(false);</b>
+<b class="nc">&nbsp;                Toast.makeText(AdminAddArtistActivity.this,</b>
+<b class="nc">&nbsp;                        getString(R.string.msg_edit_artist_success), Toast.LENGTH_SHORT).show();</b>
+<b class="nc">&nbsp;                GlobalFunction.hideSoftKeyboard(this);</b>
+&nbsp;            });
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+&nbsp;        // Add artist
+<b class="nc">&nbsp;        showProgressDialog(true);</b>
+<b class="nc">&nbsp;        long artistId = System.currentTimeMillis();</b>
+<b class="nc">&nbsp;        Artist artist = new Artist(artistId, strName, strImage);</b>
+<b class="nc">&nbsp;        MyApplication.get(this).getArtistDatabaseReference()</b>
+<b class="nc">&nbsp;                .child(String.valueOf(artistId)).setValue(artist, (error, ref) -&gt; {</b>
+<b class="nc">&nbsp;            showProgressDialog(false);</b>
+<b class="nc">&nbsp;            binding.edtName.setText(&quot;&quot;);</b>
+<b class="nc">&nbsp;            binding.edtImage.setText(&quot;&quot;);</b>
+<b class="nc">&nbsp;            GlobalFunction.hideSoftKeyboard(this);</b>
+<b class="nc">&nbsp;            Toast.makeText(this, getString(R.string.msg_add_artist_success), Toast.LENGTH_SHORT).show();</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>

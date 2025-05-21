@@ -1,0 +1,273 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ContactAdapter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pro.music.adapter</a>
+</div>
+
+<h1>Coverage Summary for Class: ContactAdapter (com.pro.music.adapter)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ContactAdapter</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ContactAdapter$ContactViewHolder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ContactAdapter$ICallPhone</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/29)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pro.music.adapter;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.ViewGroup;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.pro.music.R;
+&nbsp;import com.pro.music.constant.GlobalFunction;
+&nbsp;import com.pro.music.databinding.ItemContactBinding;
+&nbsp;import com.pro.music.model.Contact;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class ContactAdapter extends RecyclerView.Adapter&lt;ContactAdapter.ContactViewHolder&gt; {
+&nbsp;
+&nbsp;    private Context context;
+&nbsp;    private final List&lt;Contact&gt; listContact;
+&nbsp;    private final ICallPhone iCallPhone;
+&nbsp;
+&nbsp;    public interface ICallPhone {
+&nbsp;        void onClickCallPhone();
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public ContactAdapter(Context context, List&lt;Contact&gt; listContact, ICallPhone iCallPhone) {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+<b class="nc">&nbsp;        this.listContact = listContact;</b>
+<b class="nc">&nbsp;        this.iCallPhone = iCallPhone;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @NonNull
+&nbsp;    @Override
+&nbsp;    public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+<b class="nc">&nbsp;        ItemContactBinding itemContactBinding = ItemContactBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);</b>
+<b class="nc">&nbsp;        return new ContactViewHolder(itemContactBinding);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
+<b class="nc">&nbsp;        Contact contact = listContact.get(position);</b>
+<b class="nc">&nbsp;        if (contact == null) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        holder.mItemContactBinding.imgContact.setImageResource(contact.getImage());</b>
+<b class="nc">&nbsp;        switch (contact.getId()) {</b>
+&nbsp;            case Contact.FACEBOOK:
+<b class="nc">&nbsp;                holder.mItemContactBinding.tvContact.setText(context.getString(R.string.label_facebook));</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Contact.HOTLINE:
+<b class="nc">&nbsp;                holder.mItemContactBinding.tvContact.setText(context.getString(R.string.label_call));</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Contact.GMAIL:
+<b class="nc">&nbsp;                holder.mItemContactBinding.tvContact.setText(context.getString(R.string.label_gmail));</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Contact.SKYPE:
+<b class="nc">&nbsp;                holder.mItemContactBinding.tvContact.setText(context.getString(R.string.label_skype));</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Contact.YOUTUBE:
+<b class="nc">&nbsp;                holder.mItemContactBinding.tvContact.setText(context.getString(R.string.label_youtube));</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case Contact.ZALO:
+<b class="nc">&nbsp;                holder.mItemContactBinding.tvContact.setText(context.getString(R.string.label_zalo));</b>
+&nbsp;                break;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        holder.mItemContactBinding.layoutItem.setOnClickListener(v -&gt; {</b>
+<b class="nc">&nbsp;            switch (contact.getId()) {</b>
+&nbsp;                case Contact.FACEBOOK:
+<b class="nc">&nbsp;                    GlobalFunction.onClickOpenFacebook(context);</b>
+&nbsp;                    break;
+&nbsp;
+&nbsp;                case Contact.HOTLINE:
+<b class="nc">&nbsp;                    iCallPhone.onClickCallPhone();</b>
+&nbsp;                    break;
+&nbsp;
+&nbsp;                case Contact.GMAIL:
+<b class="nc">&nbsp;                    GlobalFunction.onClickOpenGmail(context);</b>
+&nbsp;                    break;
+&nbsp;
+&nbsp;                case Contact.SKYPE:
+<b class="nc">&nbsp;                    GlobalFunction.onClickOpenSkype(context);</b>
+&nbsp;                    break;
+&nbsp;
+&nbsp;                case Contact.YOUTUBE:
+<b class="nc">&nbsp;                    GlobalFunction.onClickOpenYoutubeChannel(context);</b>
+&nbsp;                    break;
+&nbsp;
+&nbsp;                case Contact.ZALO:
+<b class="nc">&nbsp;                    GlobalFunction.onClickOpenZalo(context);</b>
+&nbsp;                    break;
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getItemCount() {
+<b class="nc">&nbsp;        return null == listContact ? 0 : listContact.size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void release() {
+<b class="nc">&nbsp;        context = null;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public static class ContactViewHolder extends RecyclerView.ViewHolder {</b>
+&nbsp;
+&nbsp;        private final ItemContactBinding mItemContactBinding;
+&nbsp;
+&nbsp;        public ContactViewHolder(ItemContactBinding itemContactBinding) {
+<b class="nc">&nbsp;            super(itemContactBinding.getRoot());</b>
+<b class="nc">&nbsp;            this.mItemContactBinding = itemContactBinding;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-21 09:04</div>
+</div>
+</body>
+</html>
